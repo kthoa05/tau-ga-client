@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<StackPane prefHeight="800.0" prefWidth="1532.0" style="-fx-background-color: white;"
+           xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controller.nv.main.MainLayout"
+           stylesheets="@/tauga/css/nv/main.css">
+    <BorderPane fx:id="pnMain">
+        <top>
+            <BorderPane prefHeight="102.0" prefWidth="1532.0" BorderPane.alignment="CENTER">
+                <left>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;"
+                                BorderPane.alignment="CENTER">
+                        <center>
+                            <ImageView fitHeight="93.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true"
+                                       BorderPane.alignment="CENTER">
+                                <image>
+                                    <Image url="@../../../img/logoo.jpg"/>
+                                </image>
+                            </ImageView>
+                        </center>
+                        <bottom>
+                            <Label text="Hệ thống quản lý bán vé tàu " BorderPane.alignment="CENTER"/>
+                        </bottom>
+                    </BorderPane>
+                </left>
+                <center>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;"
+                                BorderPane.alignment="CENTER">
+                        <left>
+                            <Label fx:id="lblXinChao" alignment="CENTER" contentDisplay="CENTER" text="Xin chào"
+                                   BorderPane.alignment="CENTER">
+                                <font>
+                                    <Font size="30.0"/>
+                                </font>
+                            </Label>
+                        </left>
+                        <padding>
+                            <Insets left="10.0"/>
+                        </padding>
+                        <right>
+                            <HBox alignment="CENTER" prefHeight="88.0" prefWidth="200.0" spacing="30.0"
+                                  BorderPane.alignment="CENTER">
+                                <children>
+                                    <ImageView fitHeight="43.0" fitWidth="44.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../../img/moon.png"/>
+                                        </image>
+                                    </ImageView>
+                                    <ImageView fx:id="imgUser"
+                                               fitHeight="46.0"
+                                               fitWidth="46.0"
+                                               pickOnBounds="true"
+                                               preserveRatio="true"
+                                               onMouseClicked="#onUserClick">
+                                        <image>
+                                            <Image url="@../../../img/user.png"/>
+                                        </image>
+                                    </ImageView>
+                                </children>
+                            </HBox>
+                        </right>
+                    </BorderPane>
+                </center>
+            </BorderPane>
+        </top>
+
+        <left>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <center>
+                    <ScrollPane hbarPolicy="NEVER" prefHeight="686.0" prefWidth="213.0" style="-fx-border-color: black;"
+                                BorderPane.alignment="CENTER">
+                        <content>
+                            <VBox prefHeight="679.0" prefWidth="200" spacing="10.0"
+                                  style="-fx-background-color: #f9f9f9;">
+
+                                <!-- DashboardNV -->
+                                <HBox fx:id="btnDashboard" alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0; -fx-cursor: hand;" styleClass="menu-item ">
+                                    <ImageView fitHeight="33.0" fitWidth="32.0" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../../img/home.png"/>
+                                        </image>
+                                    </ImageView>
+                                    <Label fx:id="lblDashboard" onMouseClicked="#chuyenManHinh" style="-fx-font-size: 14;" text="Dashboard"/>
+                                </HBox>
+
+                                <!-- Tra cứu -->
+                                <VBox  maxWidth="Infinity" spacing="4" style="-fx-padding: 0;">
+                                    <HBox fx:id="btnTraCuu" alignment="CENTER_LEFT" onMouseClicked="#toggleTraCuuMenu"
+                                          spacing="8.0" styleClass="menu-item" style="-fx-cursor: hand;">
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">
+                                            <image><Image url="@../../../img/loupe.png"/></image>
+                                        </ImageView>
+
+                                        <Label style="-fx-font-size: 14;" text="Tra cứu" minWidth="-Infinity"/>
+
+                                        <VBox HBox.hgrow="ALWAYS" />
+
+                                        <ImageView fx:id="arrowIconTraCuu" fitHeight="12" fitWidth="12" preserveRatio="true">
+                                            <image><Image url="@../../../img/down-arrow.png"/></image>
+                                            <HBox.margin>
+                                                <Insets right="15.0"/> </HBox.margin>
+                                        </ImageView>
+                                    </HBox>
+
+                                    <VBox fx:id="traCuuMenu" managed="false" spacing="6"
+                                          style="-fx-padding: 6 0 0 24; -fx-cursor: hand;" visible="false">
+                                        <HBox fx:id="btnTTVeTau" alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="40.0" fitWidth="44.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/ticket.png"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblVeTau" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Vé tàu"/>
+                                        </HBox>
+
+                                        <HBox fx:id="btnChuyenDi" alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/train trip.png"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblChuyenDi" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Chuyến đi"/>
+                                        </HBox>
+
+                                        <HBox fx:id="btnKhuyenMai" alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="38.0" fitWidth="42.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/promotion.png"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblKhuyenMai" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Khuyến mãi"/>
+                                        </HBox>
+
+                                        <HBox fx:id="btnGa" alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="40.0" fitWidth="43.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/train-station.png"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblGa" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Ga"/>
+                                        </HBox>
+                                    </VBox>
+                                </VBox>
+
+                                <!-- Vé tàu -->
+                                <VBox maxWidth="Infinity" spacing="4" style="-fx-padding: 0;">
+                                    <HBox fx:id="btnVeTau" alignment="CENTER_LEFT" onMouseClicked="#toggleVeTauMenu"
+                                          spacing="8.0" style=" -fx-cursor: hand;" styleClass="menu-item">
+                                        <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../img/train.png"/>
+                                            </image>
+                                        </ImageView>
+
+                                        <Label style="-fx-font-size: 14;" text="Vé tàu" minWidth="-Infinity"/>
+
+                                        <VBox HBox.hgrow="ALWAYS" />
+
+                                        <ImageView fx:id="arrowIconVeTau" fitHeight="12" fitWidth="12" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../img/down-arrow.png"/>
+                                            </image>
+                                            <HBox.margin>
+                                                <Insets right="15.0"/> </HBox.margin>
+                                        </ImageView>
+                                    </HBox>
+
+                                    <VBox fx:id="veTauMenu" managed="false" spacing="6"
+                                          style="-fx-padding: 6 0 0 24; -fx-cursor: hand;" visible="false">
+                                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="45" fitWidth="55" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/add-ticket.jpg"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblDatVe" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Đặt vé"/>
+                                        </HBox>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="45" fitWidth="58" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/exchange-ticket.jpg"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblDoiVe" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Đổi vé"/>
+                                        </HBox>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="45" fitWidth="55" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/return-ticket.jpg"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblTraVe" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Trả vé"/>
+                                        </HBox>
+                                    </VBox>
+                                </VBox>
+
+
+                                <VBox maxWidth="Infinity" spacing="4" style="-fx-padding: 0;">
+                                    <HBox fx:id="btnThongKe" alignment="CENTER_LEFT" onMouseClicked="#toggleThongKe"
+                                          spacing="8.0" style="-fx-cursor: hand;" styleClass="menu-item">
+                                        <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../img/statistical.png"/>
+                                            </image>
+                                        </ImageView>
+
+                                        <Label style="-fx-font-size: 14;" text="Thống kê" minWidth="-Infinity"/>
+
+                                        <VBox HBox.hgrow="ALWAYS" />
+
+                                        <ImageView fx:id="arrowIconThongKe" fitHeight="12" fitWidth="12" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../img/down-arrow.png"/>
+                                            </image>
+                                            <HBox.margin>
+                                                <Insets right="15.0"/> </HBox.margin>
+                                        </ImageView>
+                                    </HBox>
+
+                                    <VBox fx:id="thongKeMenu" managed="false" spacing="6"
+                                          style="-fx-padding: 6 0 0 24; -fx-cursor: hand;" visible="false">
+                                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="33.0" fitWidth="35.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/revenue.png"/>
+                                                </image>
+                                            </ImageView>
+                                            <Label fx:id="lblDTTheoCa" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Doanh thu"/>
+                                        </HBox>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="menu-item">
+                                            <ImageView fitHeight="33.0" fitWidth="35.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../../img/revenue.png"/>
+                                                </image>
+                                            </ImageView>
+
+                                            <Label fx:id="lblSLVeTheoCa" onMouseClicked="#chuyenManHinh"
+                                                   style="-fx-font-size: 14;" text="Số lượng vé"/>
+                                        </HBox>
+                                    </VBox>
+
+
+                                </VBox>
+
+                                <!-- Tài khoản -->
+                                <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 10; -fx-cursor: hand;" styleClass="menu-item">
+                                    <ImageView fitHeight="28" fitWidth="28" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../../img/account.png"/>
+                                        </image>
+                                    </ImageView>
+                                    <Label fx:id="lblTaiKhoan" onMouseClicked="#chuyenManHinh"
+                                           style="-fx-font-size: 14;" text="Tài khoản"/>
+                                    <padding>
+                                        <Insets bottom="20.0"/>
+                                    </padding>
+                                </HBox>
+
+                                <!-- Trợ giúp + đăng xuất -->
+                                <VBox prefWidth="198.0" spacing="5.0"
+                                      style="-fx-padding: 10 0 0 0; -fx-border-color: #cccccc transparent transparent transparent; -fx-cursor: hand;">
+
+                                    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="menu-item">
+                                        <ImageView fitHeight="25.0" fitWidth="26.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../img/help.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label style="-fx-font-size: 14;" text="Trợ giúp"/>
+                                    </HBox>
+                                    <!--Đăng xuất-->
+                                    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="menu-item" onMouseClicked="#hienThiFrameDangXuat">
+                                        <ImageView fitHeight="28" fitWidth="28" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../img/logout.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="lblDangXuat" style="-fx-font-size: 14;" text="Đăng xuất"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
+        </left>
+
+        <center>
+            <AnchorPane fx:id="contentArea" style="-fx-background-color: white;" />
+        </center>
+
+
+    </BorderPane>
+
+
+    <!-- content log out -->
+    <VBox fx:id="pnDangXuat" alignment="CENTER" visible="false" style="-fx-background-color: transparent;"
+          StackPane.alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
+        <VBox prefWidth="400" prefHeight="200" maxWidth="600" maxHeight="400" alignment="TOP_CENTER" style="-fx-background-color: white;
+             -fx-background-radius: 10;-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 15, 0, 0, 5); -fx-padding: 0;">
+
+            <BorderPane prefHeight="46" style="-fx-background-color: #0078D7;    -fx-background-radius: 10 10 0 0;">
+                <left>
+                    <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-padding: 0 0 0 12;">
+                        <Label text="Hệ thống đặt vé tàu"
+                               style="-fx-text-fill: white;    -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                    </HBox>
+                </left>
+
+                <right>
+                    <HBox spacing="6" alignment="CENTER_RIGHT" style="-fx-padding: 0 10 0 0;">
+                        <Button text="X" onAction="#dongHopThoai"
+                                style="-fx-background-color: transparent;   -fx-text-fill: white;   -fx-font-size: 14px;"
+                                prefWidth="28" prefHeight="28"/>
+                    </HBox>
+                </right>
+            </BorderPane>
+
+            <HBox alignment="CENTER_LEFT" spacing="14" style="-fx-padding: 18 22 8 22;">
+                <ImageView fitWidth="44" fitHeight="44" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../img/question-mark.png"/>
+                    </image>
+                </ImageView>
+                <Label text="Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?" wrapText="true" maxWidth="360"
+                       style="-fx-font-size: 16px; -fx-text-fill: #222; -fx-font-weight: 600;"/>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="16" style="-fx-padding: 12 0 18 0;">
+                <Button fx:id="btnCoDangXuat" onAction="#dangXuat" prefHeight="40" prefWidth="120" text="Có"
+                        style="-fx-background-color: #1877f2; -fx-text-fill: white;-fx-font-size: 14px; -fx-background-radius: 6;"/>
+                <Button fx:id="btnNoDangXuat" onAction="#khongDangXuat" prefHeight="40" prefWidth="120" text="Không"
+                        style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 6;  -fx-font-size: 14px; -fx-text-fill: #333;"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+</StackPane>

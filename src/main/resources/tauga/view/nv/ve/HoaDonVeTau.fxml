@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" alignment="CENTER" prefHeight="774.0" prefWidth="376.0" spacing="5.0" style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.nv.ve.HoaDonVeTau"> <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+</padding>
+
+    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333;" text="PTUD_Nhom20_IUH" />
+    <Label fx:id="txtVeTauDemSo" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0056b3;" text="VÉ TÀU XE LỬA" />
+
+    <Separator />
+
+    <ImageView fx:id="imgQRCode" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+        <VBox.margin>
+            <Insets bottom="-30.0" top="-10.0" />
+        </VBox.margin>
+    </ImageView>
+     <HBox alignment="CENTER" spacing="5" />
+
+    <Separator />
+   <GridPane prefHeight="280.0" prefWidth="334.0" vgap="5.0">
+     <columnConstraints>
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="311.4" />
+<!--       <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.60003662109375" minWidth="10.0" prefWidth="184.0" />-->
+     </columnConstraints>
+     <rowConstraints>
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+
+
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+           <HBox spacing="5" GridPane.rowIndex="2">
+               <Label fx:id="lblTenHanhKhachNhan" prefHeight="22.0" prefWidth="361.0" style="-fx-font-weight: bold; -fx-font-size: 15px;" text="Hành khách:" />
+           </HBox>
+           <HBox spacing="5" GridPane.rowIndex="3">
+            <children>
+                  <Label fx:id="lblTenHanhKhach" prefHeight="18.0" prefWidth="315.0" text="..............................." />
+            </children>
+           </HBox>
+           <HBox spacing="5" GridPane.rowIndex="5">
+            <children>
+                 <HBox>
+                     <HBox spacing="5" />
+                 </HBox>
+                  <Label fx:id="lblTenTau" prefHeight="18.0" prefWidth="307.0" text="..............................." />
+            </children>
+           </HBox>
+            <HBox spacing="5" GridPane.rowIndex="6">
+            <children>
+                  <HBox spacing="5">
+                      <Label fx:id="lblGaDiNhan" prefHeight="22.0" prefWidth="405.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Ga đi:" />
+                  </HBox>
+            </children>
+            </HBox>
+            <HBox spacing="5" GridPane.rowIndex="7">
+            <children>
+                   <Label fx:id="lblGaDi" prefHeight="18.0" prefWidth="314.0" text="..............................." />
+            </children>
+            </HBox>
+
+          <VBox spacing="5" GridPane.rowIndex="8">
+              <HBox spacing="20" />
+                <Label fx:id="lblGaDenNhan" prefHeight="22.0" prefWidth="404.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Ga đến:" />
+               <HBox prefHeight="17.6" prefWidth="331.2" spacing="20.0" />
+          </VBox>
+            <Label fx:id="lblNgayGioKhoiHanh" prefHeight="18.0" prefWidth="314.0" text="..............................." GridPane.rowIndex="11" />
+                <Label fx:id="lblLoaiVe" maxWidth="Infinity" prefHeight="18.0" text="..............................." wrapText="true" GridPane.rowIndex="21" />
+         <Label fx:id="lblLoaiVeNhan" prefHeight="18.0" prefWidth="368.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Loại vé:" GridPane.rowIndex="20">
+         </Label>
+          <Label fx:id="lblLoaiGheNhan" maxWidth="Infinity" prefHeight="24.0" prefWidth="150.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Loại ghế:" textOverrun="CLIP" GridPane.rowIndex="18" />
+          <Label fx:id="lblLoaiGhe" maxWidth="Infinity" prefHeight="22.0" prefWidth="186.0" text="..............................." wrapText="true" GridPane.rowIndex="19" />
+             <Label fx:id="lblSoGhe" prefHeight="18.0" prefWidth="313.0" text="..............................." GridPane.rowIndex="17" />
+             <Label fx:id="lblGaDen" prefHeight="18.0" prefWidth="319.0" text="..............................." GridPane.rowIndex="9" />
+             <Label fx:id="lblTenKhoangTau" prefHeight="18.0" prefWidth="316.0" text="..............................." GridPane.rowIndex="15" />
+             <Label fx:id="lblSoGheNhan" prefHeight="18.0" prefWidth="330.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Số ghế:" GridPane.rowIndex="16" />
+              <HBox prefHeight="18.0" prefWidth="174.0" spacing="5.0" GridPane.rowIndex="14">
+            <children>
+                   <Label fx:id="lblKhoangTauNhan" prefHeight="22.0" prefWidth="349.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Khoang tàu:" />
+            </children>
+         </HBox>
+             <Label fx:id="lblMaToaTauNhan" prefHeight="22.0" prefWidth="382.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Mã toa tàu:" GridPane.rowIndex="12" />
+             <Label fx:id="lblMaToaTau" prefHeight="18.0" prefWidth="312.0" text="..............................." GridPane.rowIndex="13" />
+            <Label fx:id="lblNgayGioKhoiHanhNhan" prefHeight="22.0" prefWidth="387.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Ngày giờ khởi hành:" GridPane.rowIndex="10" />
+            <Label fx:id="lblTenTauNhan" prefHeight="22.0" prefWidth="378.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Tàu:" GridPane.rowIndex="4" />
+            <Label fx:id="lblMaVeNhan" style="-fx-font-weight: bold; -fx-font-size: 15;" text="Mã vé:" />
+            <Label fx:id="lblMaVe" prefHeight="18.0" prefWidth="386.0" text="..............................." GridPane.rowIndex="1" />
+      </children>
+   </GridPane>
+
+    <VBox alignment="TOP_LEFT" spacing="5" />
+   <GridPane prefHeight="174.0" prefWidth="334.0" vgap="5.0">
+     <columnConstraints>
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.4" minWidth="10.0" prefWidth="320.8000152587891" />
+     </columnConstraints>
+     <rowConstraints>
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+
+
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+           <HBox spacing="5">
+               <Label fx:id="lblGiaVeNhan" prefHeight="18.0" prefWidth="352.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Giá vé:" />
+           </HBox>
+           <HBox spacing="5" GridPane.rowIndex="1">
+            <children>
+                  <Label fx:id="lblGiaVe" prefHeight="18.0" prefWidth="316.0" text="..............................." />
+            </children>
+           </HBox>
+           <HBox spacing="5" GridPane.rowIndex="5">
+            <children>
+               <Label fx:id="lblSoTienKhuyeMai" text="..............................." />
+            </children>
+           </HBox>
+           <HBox spacing="5" GridPane.rowIndex="4">
+            <children>
+               <Label fx:id="lblSoTienKhuyenMaiNhan" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Số tiền khuyến mãi:" />
+            </children>
+           </HBox>
+         <Button fx:id="btnInVe" mnemonicParsing="false" onAction="#InVe" style="-fx-background-color: #52CCF6;" text="In vé" textFill="WHITE" GridPane.rowIndex="10">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <GridPane.margin>
+               <Insets left="130.0" top="20.0" />
+            </GridPane.margin>
+         </Button>
+            <Label fx:id="lblMaKhuyenMai" prefHeight="18.0" prefWidth="342.0" text="..............................." GridPane.rowIndex="3" />
+            <Label fx:id="lblPhuongThucThanhToan" prefHeight="18.0" prefWidth="340.0" text="..............................." GridPane.rowIndex="7" />
+            <Label fx:id="lblTongTien" prefHeight="26.0" prefWidth="348.0" style="-fx-font-size: 16px; -fx-text-fill: #d32f2f;" text="..............................." GridPane.rowIndex="9" />
+            <Label fx:id="lblTongTienNhan" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #d32f2f;" text="Tổng tiền:" GridPane.rowIndex="8" />
+            <Label fx:id="lblPhuongThucThanhToanNhan" prefHeight="22.0" prefWidth="338.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Hình thức thanh toán:" GridPane.rowIndex="6" />
+            <Label fx:id="lblMaKhuyenMaiNhan" prefHeight="22.0" prefWidth="336.0" style="-fx-font-weight: bold;-fx-font-size: 15px;" text="Mã khuyến mãi:" GridPane.rowIndex="2" />
+      </children>
+   </GridPane>
+</VBox>

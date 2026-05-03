@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.nv.ve.form.FormThongTinKhachHang" fx:id="pnThongTinKhachHang" alignment="TOP_LEFT"
+      fillWidth="true"
+      maxWidth="Infinity"
+      spacing="15" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+    <!--    prefHeight="800.0" prefWidth="366.0"-->
+    <!-- thong tin kh -->
+    <VBox spacing="8"
+          fillWidth="true"
+          maxWidth="Infinity"
+          style="-fx-background-color: white; -fx-padding: 15;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 6;">
+        <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 14;" text="THÔNG TIN KHÁCH HÀNG"/>
+
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="LEFT" prefWidth="80"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="160"/>
+                    <ColumnConstraints halignment="LEFT" prefWidth="90"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="160"/>
+                </columnConstraints>
+
+                <Label text="Họ tên:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtHoTenKH" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+<!--                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>-->
+<!--                <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2"/>-->
+
+                <Label text="SĐT:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtSDTKH" onAction="#timThongTinKHTheoSdt" GridPane.columnIndex="3"
+                           GridPane.rowIndex="0"/>
+
+                <Label text="CCCD:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtCCCDKH" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Ngày sinh:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <DatePicker fx:id="dpNgaySinhKH" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+            </GridPane>
+        </children>
+        <VBox.margin>
+            <Insets top="10.0"/>
+        </VBox.margin>
+    </VBox>
+
+    <!-- thong tin ve tau -->
+    <VBox fx:id="pnThongTinVeTau" fillWidth="true" maxWidth="Infinity" spacing="8.0"
+          style="-fx-border-color: #ccc; -fx-border-radius: 8; -fx-padding: 10;">
+        <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 14;" text="THÔNG TIN VÉ TÀU"/>
+            <ScrollPane fx:id="pnScrollPaneDanhSachVe" visible="false" managed="false" fitToWidth="true"
+                        hbarPolicy="NEVER" prefWidth="582.0" style="-fx-background-color: transparent;"
+                        vbarPolicy="AS_NEEDED">
+                <VBox fx:id="pnDanhSachVe" visible="false" managed="false" spacing="8"
+                      style="-fx-padding: 5; -fx-background-color: white;"/>
+                <!--                <GridPane alignment="CENTER" hgap="5.0" prefWidth="548.0" style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-background-color: white;" vgap="10.0">-->
+                <!--                    <columnConstraints>-->
+                <!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="100" />-->
+                <!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="150" />-->
+                <!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="100" />-->
+                <!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="150" />-->
+                <!--                    </columnConstraints>-->
+                <!--                    <rowConstraints>-->
+                <!--                        <RowConstraints vgrow="SOMETIMES" />-->
+                <!--                        <RowConstraints vgrow="SOMETIMES" />-->
+                <!--                        <RowConstraints vgrow="SOMETIMES" />-->
+                <!--                        <RowConstraints vgrow="SOMETIMES" />-->
+                <!--                        <RowConstraints vgrow="SOMETIMES" />-->
+                <!--                    </rowConstraints>-->
+
+                <!--                    <children>-->
+                <!--                        <Label text="Hành khách:" GridPane.columnIndex="0" GridPane.rowIndex="0" />-->
+                <!--                        <TextField fx:id="txtHanhKhachCu" GridPane.columnIndex="1" GridPane.rowIndex="0" />-->
+
+                <!--                        <Label text="CCCD:" GridPane.columnIndex="2" GridPane.rowIndex="0" />-->
+                <!--                        <TextField fx:id="txtCCCD_VeTraCu" GridPane.columnIndex="3" GridPane.rowIndex="0" />-->
+
+
+                <!--                        <Label text="Ngày khởi hành:" GridPane.columnIndex="0" GridPane.rowIndex="1" />-->
+                <!--                        <TextField fx:id="txtNgayKhoiHanhCu" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
+
+                <!--                        <Label text="Ngày đến:" GridPane.columnIndex="2" GridPane.rowIndex="1" />-->
+                <!--                        <TextField fx:id="txtNgayDenCu" GridPane.columnIndex="3" GridPane.rowIndex="1" />-->
+
+
+                <!--                        <Label text="Toa-khoang-ghế:" GridPane.rowIndex="2" />-->
+                <!--                        <TextField fx:id="txtToa_Khoang_GheCu" GridPane.columnIndex="1" GridPane.rowIndex="2" />-->
+
+                <!--                        <Label text="Ngày đặt:" GridPane.columnIndex="2" GridPane.rowIndex="2" />-->
+                <!--                        <TextField fx:id="txtNgayDatCu" GridPane.columnIndex="3" GridPane.rowIndex="2" />-->
+
+
+                <!--                        <Label text="Chuyến tàu:" GridPane.columnIndex="0" GridPane.rowIndex="3" />-->
+                <!--                        <TextField fx:id="txtChuyenTauCu" GridPane.columnIndex="1" GridPane.rowIndex="3" />-->
+
+                <!--                        <Label text="Loại ghế:" GridPane.columnIndex="2" GridPane.rowIndex="3" />-->
+                <!--                        <TextField fx:id="txtLoaiGhe_VeTraCu" GridPane.columnIndex="3" GridPane.rowIndex="3" />-->
+
+
+                <!--                        <Label text="Tổng tiền:" GridPane.columnIndex="0" GridPane.rowIndex="4" />-->
+                <!--                        <TextField fx:id="txtTongTien_VeTraCu" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />-->
+
+                <!--                    </children>-->
+                <!--                    <padding>-->
+                <!--                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                <!--                    </padding>-->
+                <!--                </GridPane>-->
+            </ScrollPane>
+        </children>
+    </VBox>
+
+    <!-- btn dat ve -->
+    <HBox alignment="CENTER">
+        <children>
+            <Button fx:id="btnDatVe" onAction="#onDatVe"
+                    style="-fx-background-color: #52CCF6; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 5 15;"
+                    text="Đặt vé"/>
+        </children>
+    </HBox>
+
+    <!-- chi tiet hoa don  -->
+    <VBox fx:id="pnChiTietHoaDon" spacing="8"
+          fillWidth="true"
+          maxWidth="Infinity"
+          style="-fx-border-color: #ccc; -fx-border-radius: 8; -fx-padding: 10;">
+        <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 14;" text="CHI TIẾT HÓA ĐƠN"/>
+
+            <GridPane hgap="10" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints halignment="LEFT" prefWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="160"/>
+                    <ColumnConstraints halignment="LEFT" prefWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="160"/>
+                </columnConstraints>
+
+                <Label text="Tên khách hàng:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtTenKHHD" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Nhân viên:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtNhanVien" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <Label text="Số điện thoại:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtSdtHD" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Ngày lập hoá đơn:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtNgayLapHD" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <Label text="Thành tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtThanhTien" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Mã khuyến mãi:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtMaKhuyenMaiCTHD"
+                           onAction="#onKiemTraMaKhuyenMaiCTHD"
+                           promptText="Nhập mã khuyến mãi"
+                           GridPane.columnIndex="3"
+                           GridPane.rowIndex="2"/>
+
+                <Label text="Số tiền giảm giá:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtSoTienGiamGia"
+                           promptText="0"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="3"/>
+
+                <Label style="-fx-font-weight: bold; -fx-text-fill: red;" text="Tổng tiền:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtTongTien" style="-fx-font-weight: bold; -fx-text-fill: red;"
+                           GridPane.columnIndex="3"
+                           GridPane.rowIndex="3"/>
+
+
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+            </GridPane>
+        </children>
+    </VBox>
+
+    <VBox fx:id="pnXacNhanDat" alignment="CENTER">
+        <Button fx:id="btnXacNhanDatVe" onAction="#onXacNhanDatVe"
+                style="-fx-background-color: #52CCF6; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 5 15;"
+                text="Xác nhận"/>
+    </VBox>
+</VBox>

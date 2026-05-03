@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.nv.ve.form.FormHinhThucThanhToan" fx:id="pnHinhThucThanhToan" managed="false"
+            prefHeight="670.0" prefWidth="274.0"
+            style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 6;"
+            visible="false" BorderPane.alignment="CENTER">
+    <!--label thanh toan -->
+    <top>
+        <Label fx:id="lblThanhToan"
+               style="-fx-font-size: 16; -fx-font-weight: bold; -fx-label-padding: 20;"
+               text="Hình thức thanh toán" BorderPane.alignment="CENTER"/>
+    </top>
+
+    <!-- hinh thuc thanh toan + noi dung -->
+    <center>
+        <VBox spacing="15" BorderPane.alignment="CENTER">
+            <children>
+                <!-- chon cac hinh thuc thanh toan -->
+                <VBox alignment="TOP_CENTER" spacing="15"
+                      style="-fx-border-color: #bbb; -fx-border-radius: 8; -fx-padding: 15;"
+                      BorderPane.alignment="CENTER">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 13;"
+                               text="Chọn phương thức thanh toán:"/>
+                        <VBox alignment="CENTER" spacing="5" style="-fx-padding: 5 20 5 30;">
+                            <children>
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <RadioButton fx:id="radTienMat" selected="true" text="Tiền mặt">
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </RadioButton>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <RadioButton fx:id="radChuyenKhoan" text="Chuyển khoản"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <Button fx:id="btnPhuongThucTT" onAction="#onXacNhanPhuongThucThanhToan"
+                                style="-fx-background-color: #52CCF6; -fx-background-radius: 10; -fx-text-fill: white; -fx-padding: 6 15;"
+                                text="Xác nhận"/>
+                    </children>
+                </VBox>
+
+                <!--content tuong ung voi hinh thuc tt-->
+                <StackPane fx:id="pnThongTinThanhToan"
+                           style="-fx-border-color: #aaa; -fx-border-radius: 8; -fx-padding: 2 10 10 2;"
+                           BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <!--
+                        Code:
+                        - Chuyển khoản -> hiển thị VBox chứa mã QR + số tiền
+                        - Tiền mặt -> hiển thị VBox chứa:
+                            + số tiền phải trả
+                            + số tiền khách đưa (có gợi ý sẵn)
+                            + số tiền thối lại
+                    -->
+                </StackPane>
+            </children>
+        </VBox>
+    </center>
+
+    <!--ket thuc quy trinh dat ve -->
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 10;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btnInVe" onAction="#onInVe"
+                        style="-fx-background-color: #52CCF6; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"
+                        text="In vé"/>
+                <Button onAction="#ketThuc" fx:id="btnKetThuc"
+                        style="-fx-background-color: #52CCF6; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"
+                        text="Kết thúc">
+                    <HBox.margin>
+                        <Insets left="20.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+
+</BorderPane>

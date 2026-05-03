@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.authen.QuenMK">
+
+    <ImageView fx:id="anhNen" fitHeight="600.0" fitWidth="800.0" preserveRatio="false">
+        <image>
+            <Image url="@../../img/tau.jpg" />
+        </image>
+    </ImageView>
+
+    <VBox alignment="CENTER" spacing="15.0">
+        <Label style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 12, 0.5, 0, 2);" text="Hệ thống quản lý bán vé tàu" textAlignment="CENTER" />
+
+        <VBox alignment="CENTER" maxWidth="500.0" prefHeight="486.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #FFFBEB; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.5, 0, 6);">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #222;" text="QUÊN MẬT KHẨU" />
+
+            <VBox maxWidth="400.0" spacing="10.0">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Tên đăng nhập" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #d0d0d0; -fx-border-radius: 6; -fx-padding: 6 10;">
+                    <ImageView fitHeight="28.0" fitWidth="28.0">
+                        <image>
+                            <Image url="@../../img/userdn.png" />
+                        </image>
+                    </ImageView>
+                    <TextField fx:id="txtTenDangNhap_Quen" prefHeight="45.0" promptText="thoa.le" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                </HBox>
+            </VBox>
+
+            <VBox maxWidth="400.0" spacing="10.0">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="CCCD" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #d0d0d0; -fx-border-radius: 6; -fx-padding: 6 10;">
+                    <ImageView fitHeight="28.0" fitWidth="28.0">
+                        <image>
+                            <Image url="@../../img/id-card-icon.png" />
+                        </image>
+                    </ImageView>
+                    <TextField fx:id="txtCccd_Quen" prefHeight="45.0" promptText="074305001646" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                </HBox>
+            </VBox>
+
+            <VBox maxWidth="400.0" spacing="10.0">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Số điện thoại" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #d0d0d0; -fx-border-radius: 6; -fx-padding: 6 10;">
+                    <ImageView fitHeight="28.0" fitWidth="28.0">
+                        <image>
+                            <Image url="@../../img/phone.png" />
+                        </image>
+                    </ImageView>
+                    <TextField fx:id="txtSoDienThoai_Quen" prefHeight="45.0" promptText="0366864695" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                </HBox>
+            </VBox>
+
+            <HBox alignment="CENTER" maxWidth="400.0" spacing="15.0">
+                <padding>
+                    <Insets top="10.0" />
+                </padding>
+                <Button fx:id="btnQuayLai" onAction="#quayLai" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #E57373; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 5 15;" text="Quay lại" />
+                <Button fx:id="btnTiepTuc" onAction="#tiepTuc" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #52CCF6; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 5 15;" text="Tiếp tục" />
+            </HBox>
+        </VBox>
+    </VBox>
+    <VBox fx:id="vboxOTP" alignment="CENTER" spacing="15.0" visible="false" managed="false"
+          style="-fx-background-radius: 15; -fx-background-color: #3686ff;" StackPane.alignment="CENTER">
+        <Button fx:id="btnCloseOTP" onAction="#dongOtp" style="-fx-background-color: gray; -fx-text-fill: white; -fx-font-size: 18px; -fx-cursor: hand;" text="✕" StackPane.alignment="TOP_RIGHT">
+            <VBox.margin>
+                <Insets left="350.0" top="-50.0" />
+            </VBox.margin>
+        </Button>
+        <!-- Tiêu đề -->
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Xác thực giao dịch" />
+
+        <!-- Mô tả -->
+        <Label style="-fx-font-size: 13px; -fx-text-fill: #444;" text="Quý khách vui lòng nhập mã OTP đã được gửi về email của bạn, vui lòng kiểm tra hộp thư email" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+
+        <!-- HBox chua cac o nhap ma OTP -->
+        <HBox alignment="CENTER" spacing="10">
+            <TextField fx:id="otp1" alignment="CENTER" prefHeight="40" prefWidth="40" style="-fx-font-size: 18px; -fx-border-radius: 5; -fx-background-radius: 5;" />
+            <TextField fx:id="otp2" alignment="CENTER" prefHeight="40" prefWidth="40" style="-fx-font-size: 18px;" />
+            <TextField fx:id="otp3" alignment="CENTER" prefHeight="40" prefWidth="40" style="-fx-font-size: 18px;" />
+            <TextField fx:id="otp4" alignment="CENTER" prefHeight="40" prefWidth="40" style="-fx-font-size: 18px;" />
+            <TextField fx:id="otp5" alignment="CENTER" prefHeight="40" prefWidth="40" style="-fx-font-size: 18px;" />
+            <TextField fx:id="otp6" alignment="CENTER" prefHeight="40" prefWidth="40" style="-fx-font-size: 18px;" />
+        </HBox>
+
+        <Button fx:id="btnXacNhanOtp" onAction="#xacnhanOtp" prefHeight="40" prefWidth="120" style="-fx-background-color: #52CCF6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" text="Xác nhận" />
+      <StackPane.margin>
+         <Insets bottom="110.0" left="190.0" right="190.0" top="180.0" />
+      </StackPane.margin>
+    </VBox>
+</StackPane>

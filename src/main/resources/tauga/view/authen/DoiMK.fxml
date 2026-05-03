@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.PasswordField?>
+<StackPane fx:id="doiMK" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.authen.DoiMK">
+
+    <ImageView fx:id="anhNen" fitHeight="600.0" fitWidth="800.0" preserveRatio="false">
+        <image>
+            <Image url="@../../img/tau.jpg" />
+        </image>
+    </ImageView>
+
+    <VBox alignment="CENTER" spacing="15.0">
+        <Label style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 12, 0.5, 0, 2);" text="Hệ thống quản lý bán vé tàu" textAlignment="CENTER" />
+
+        <VBox alignment="CENTER" maxWidth="500.0" prefHeight="486.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #FFFBEB; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.5, 0, 6);">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #222;" text="ĐỔI MẬT KHẨU" />
+
+            <VBox maxWidth="400.0" spacing="10.0">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Mật khẩu mới" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #d0d0d0; -fx-border-radius: 6; -fx-padding: 6 10;">
+                    <PasswordField fx:id="txtMatKhauMoi" prefHeight="45.0" promptText="*********************" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                        <font>
+                            <Font size="17.0" />
+                        </font>
+                    </PasswordField>
+                    <TextField fx:id="txtMatKhauMoiHien" prefHeight="50.0" promptText="********"
+                               style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS"
+                               visible="false" managed="false">
+                        <font>
+                            <Font size="17.0"/>
+                        </font>
+                    </TextField>
+                </HBox>
+            <CheckBox fx:id="chkHienMatKhauMoi" onAction="#hienMatKhauMoi" mnemonicParsing="false" text="Hiển thị mật khẩu mới" />
+            </VBox>
+
+            <VBox maxWidth="400.0" spacing="10.0">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Nhập lại mật khẩu mới" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #d0d0d0; -fx-border-radius: 6; -fx-padding: 6 10;">
+                    <PasswordField fx:id="txtNhapLaiMK" prefHeight="45.0" promptText="********************" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                        <font>
+                            <Font size="17.0" />
+                        </font>
+                    </PasswordField>
+                    <TextField fx:id="txtNhapLaiMKHien" prefHeight="50.0" promptText="********"
+                               style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS"
+                               visible="false" managed="false">
+                        <font>
+                            <Font size="17.0"/>
+                        </font>
+                    </TextField>
+                </HBox>
+            <CheckBox fx:id="chkHienNhapLaiMatKhau" onAction="#hienNhapLaiMatKhau" mnemonicParsing="false" text="Hiển thị mật khẩu" />
+            </VBox>
+
+            <VBox maxWidth="400.0" spacing="10.0" />
+
+            <HBox alignment="CENTER" maxWidth="400.0" spacing="15.0">
+                <padding>
+                    <Insets top="10.0" />
+                </padding>
+                <Button fx:id="btnQuayLaiDMK" onAction="#quayLaiDMK" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #E57373; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" text="Quay lại" />
+                <Button fx:id="btnXacNhanDMK" onAction="#xacnhanDMK" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #4DB6AC; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" text="Xác nhận" />
+            </HBox>
+        </VBox>
+    </VBox>
+
+</StackPane>

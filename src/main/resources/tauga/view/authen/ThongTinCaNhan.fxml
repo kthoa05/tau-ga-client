@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/25"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controller.authen.ThongTinCaNhan"
+           prefWidth="1200"
+           prefHeight="800"
+           style="-fx-background-color: white;">
+
+    <VBox alignment="TOP_CENTER"
+          spacing="40"
+          prefWidth="1200"
+          prefHeight="800"
+          style="-fx-padding: 40 0 0 0;">
+
+        <!-- TITLE -->
+        <Label text="Thông tin cá nhân"
+               style="-fx-font-size: 60px; -fx-font-weight: bold;"/>
+
+        <!-- CONTENT -->
+        <HBox alignment="CENTER"
+              spacing="140"
+              prefWidth="1000">
+
+            <!-- AVATAR -->
+            <StackPane>
+                <Circle radius="140" fill="#E6EEF8"/>
+                <ImageView fitHeight="120" fitWidth="120">
+                    <image>
+                        <Image url="@../../img/user.png"/>
+                    </image>
+                </ImageView>
+            </StackPane>
+
+            <!-- FORM -->
+            <VBox spacing="18">
+
+                <HBox spacing="20">
+                    <Label text="Mã nhân viên" minWidth="160" style="-fx-font-size: 20px;"/>
+                    <TextField fx:id="txtMaNhanVien"
+                               prefWidth="300"
+                               editable="false"
+                               style="-fx-font-size: 18px;"/>
+                </HBox>
+
+                <HBox spacing="20">
+                    <Label text="Tên nhân viên" minWidth="160" style="-fx-font-size: 20px;"/>
+                    <TextField fx:id="txtTenNhanVien"
+                               prefWidth="300"
+                               editable="false"
+                               style="-fx-font-size: 18px;"/>
+                </HBox>
+
+                <HBox spacing="20">
+                    <Label text="Ngày sinh" minWidth="160" style="-fx-font-size: 20px;"/>
+                    <TextField fx:id="txtNgaySinh"
+                               prefWidth="300"
+                               editable="false"
+                               style="-fx-font-size: 18px;"/>
+                </HBox>
+
+                <HBox spacing="20">
+                    <Label text="Giới tính" minWidth="160" style="-fx-font-size: 20px;"/>
+                    <TextField fx:id="txtGioiTinh"
+                               prefWidth="300"
+                               editable="false"
+                               style="-fx-font-size: 18px;"/>
+                </HBox>
+
+                <HBox spacing="20">
+                    <Label text="CCCD" minWidth="160" style="-fx-font-size: 20px;"/>
+                    <TextField fx:id="txtCCCD"
+                               prefWidth="300"
+                               editable="false"
+                               style="-fx-font-size: 18px;"/>
+                </HBox>
+
+                <HBox spacing="20">
+                    <Label text="Email" minWidth="160" style="-fx-font-size: 20px;"/>
+                    <TextField fx:id="txtEmail"
+                               prefWidth="300"
+                               style="-fx-font-size: 18px;"/>
+                </HBox>
+
+                <HBox spacing="20">
+                    <Label text="Số điện thoại" minWidth="160" style="-fx-font-size: 20px;"/>
+                    <TextField fx:id="txtSoDienThoai"
+                               prefWidth="300"
+                               style="-fx-font-size: 18px;"/>
+                </HBox>
+            </VBox>
+        </HBox>
+
+        <!-- BUTTON -->
+        <Button fx:id="btnCapNhat"
+                onAction="#capNhatThongTinCaNhan"
+                text="Cập nhật"
+                prefWidth="220"
+                prefHeight="45"
+                style="-fx-font-size: 16px;
+                       -fx-background-color:#52CCF6;
+                       -fx-text-fill: white;
+                       -fx-font-weight: bold;
+                       -fx-background-radius: 8;"/>
+    </VBox>
+</StackPane>

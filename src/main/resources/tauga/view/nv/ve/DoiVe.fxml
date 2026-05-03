@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<AnchorPane fx:id="main" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.nv.ve.DoiVe" prefHeight="985.0" prefWidth="1200"
+            style="-fx-background-color: transparent;">
+    <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0" fitToHeight="true" fitToWidth="true"
+                style="-fx-background-color: transparent;">
+        <content>
+            <SplitPane visible="true" managed="true" fx:id="mainSplit" dividerPositions="0.4" orientation="HORIZONTAL"
+                       style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <items>
+                    <VBox>
+                        <BorderPane BorderPane.alignment="CENTER">
+                            <top>
+                                <VBox alignment="TOP_CENTER" style="-fx-border-color: gray;"
+                                      BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Label alignment="CENTER" style="-fx-font-weight: bold; -fx-font-size: 14;"
+                                               text="TÌM KIẾM THÔNG TIN KHÁCH HÀNG">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="10.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER_LEFT" spacing="30.0">
+                                            <children>
+                                                <Label text="Chọn cách thức tra cứu:">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <RadioButton fx:id="radMaVe" mnemonicParsing="false" text="Mã vé">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+
+                                                </RadioButton>
+                                                <RadioButton fx:id="radThongTinKH" mnemonicParsing="false"
+                                                             text="Thông tin khách hàng">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </RadioButton>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets left="20.0" top="5.0"/>
+                                            </VBox.margin>
+                                            <padding>
+                                                <Insets bottom="15.0"/>
+                                            </padding>
+                                        </HBox>
+                                        <HBox fx:id="HBoxMaVe" alignment="CENTER_LEFT" spacing="30.0">
+                                            <children>
+                                                <Label text="Mã vé:"/>
+                                                <TextField fx:id="txtMaVe" prefWidth="230"/>
+                                                <ImageView fitHeight="27.0" fitWidth="24.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../../img/qr.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets left="20.0"/>
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox fx:id="HBoxThongTinKH" alignment="CENTER_LEFT" managed="false"
+                                              spacing="10.0" visible="false">
+                                            <children>
+                                                <Label fx:id="lblSDT" text="Số điện thoại:">
+
+                                                </Label>
+                                                <TextField fx:id="txtSDT" prefWidth="230"/>
+                                                <Label fx:id="lblCCCD" text="CCCD:">
+
+                                                </Label>
+                                                <TextField fx:id="txtCCCD" prefWidth="230"/>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets left="20.0"/>
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox alignment="CENTER_RIGHT" spacing="30.0">
+                                            <children>
+                                                <Button fx:id="btnTimKiemVe" mnemonicParsing="false" onAction="#timKiem"
+                                                        style="-fx-background-color: #52CCF6; -fx-text-fill: white"
+                                                        text="Tìm kiếm"/>
+                                                <Button fx:id="btnTraVe" mnemonicParsing="false" onAction="#doiVe"
+                                                        style="-fx-background-color: #52CCF6; -fx-text-fill: white"
+                                                        text="Đổi vé"/>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets right="20.0" top="5.0"/>
+                                            </VBox.margin>
+                                        </HBox>
+                                        <TableView fx:id="table" prefHeight="120.0" prefWidth="800.0"
+                                                   VBox.vgrow="ALWAYS">
+                                            <!--                                            prefWidth="593.0"-->
+                                            <columns>
+                                                <TableColumn fx:id="colMaVe" text="Mã vé"/>
+                                                <TableColumn fx:id="colTenKH" text="Khách hàng"/>
+                                                <TableColumn fx:id="colChuyenTau" text="Chuyến tàu"/>
+                                                <TableColumn fx:id="colNgayDat" text="Ngày đặt"/>
+                                                <TableColumn fx:id="colGiaVe" text="Giá vé"/>
+                                                <TableColumn fx:id="colTrangThaiVe" text="Trạng thái vé"/>
+                                            </columns>
+                                            <VBox.margin>
+                                                <Insets top="10.0"/>
+                                            </VBox.margin>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </top>
+                            <center>
+                                <VBox>
+                                    <!--                        <HBox maxHeight="300.0">-->
+                                    <SplitPane dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="300.0"
+                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+                                        <VBox maxHeight="300.0" prefHeight="300.0" prefWidth="307.0" spacing="30.0"
+                                              style="-fx-border-color: #ccc; -fx-padding: 15;">
+
+                                            <children>
+                                                <Label style="-fx-font-weight: bold; -fx-font-size: 15;"
+                                                       text="CHỌN THÔNG TIN CHUYẾN ĐI"/>
+
+                                                <GridPane hgap="5" vgap="25.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints halignment="LEFT" minWidth="80"
+                                                                           prefWidth="120"/>
+                                                        <ColumnConstraints hgrow="ALWAYS" minWidth="150"/>
+                                                    </columnConstraints>
+
+                                                    <Label text="Giờ khởi hành:" GridPane.columnIndex="0"
+                                                           GridPane.rowIndex="0"/>
+
+                                                    <ComboBox fx:id="cbbGioKhoiHanh" editable="true" prefWidth="250"
+                                                              promptText="Nhập hoặc chọn giờ" GridPane.columnIndex="1"
+                                                              GridPane.rowIndex="0"/>
+
+                                                    <Label text="Loại ghế:" GridPane.columnIndex="0"
+                                                           GridPane.rowIndex="1"/>
+
+                                                    <JFXComboBox fx:id="cbbLoaiGhe" prefWidth="250"
+                                                                 GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+
+                                                    <rowConstraints>
+                                                        <RowConstraints/>
+                                                        <RowConstraints/>
+                                                        <RowConstraints/>
+                                                    </rowConstraints>
+                                                </GridPane>
+
+                                                <HBox alignment="CENTER">
+                                                    <children>
+                                                        <Button fx:id="btnTimKiem" onAction="#timKiemCT"
+                                                                style="-fx-background-color: #52CCF6; -fx-background-radius: 10; -fx-text-fill: white; -fx-padding: 8 20;"
+                                                                text="Tìm kiếm"/>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+
+                                        </VBox>
+
+                                        <StackPane fx:id="pnThongTinChuyenDi" maxHeight="300">
+
+                                            <VBox fx:id="pnThongTinChuyenDiMotChieu" managed="true" spacing="5"
+                                                  style="-fx-border-color: #ccc;  -fx-padding: 15;" visible="true">
+                                                <!--                                                -fx-border-radius: 8;-->
+                                                <children>
+                                                    <Label style="-fx-font-weight: bold; -fx-font-size: 15;"
+                                                           text="THÔNG TIN CHUYẾN ĐI PHÙ HỢP"/>
+                                                    <HBox alignment="CENTER" prefHeight="10.0" prefWidth="242.0">
+                                                        <!--                                                <children>-->
+                                                        <!--                                                    <Label text="Các chuyến đi sẵn có:"/>-->
+                                                        <!--                                                </children>-->
+                                                    </HBox>
+                                                    <ScrollPane fitToHeight="true" fitToWidth="true"
+                                                                style="-fx-background-color: transparent;">
+                                                        <VBox fx:id="pnDanhSachChuyenDiMotChieu" spacing="15"
+                                                              style="-fx-padding: 10;"/>
+                                                    </ScrollPane>
+                                                </children>
+                                            </VBox>
+
+
+                                            <BorderPane.margin>
+                                                <Insets left="5.0"/>
+
+                                            </BorderPane.margin>
+                                            <!--                                            <padding>-->
+                                            <!--                                                <Insets left="5" />-->
+                                            <!--                                            </padding>-->
+
+                                        </StackPane>
+                                    </SplitPane>
+
+
+                                    <!--                        </HBox>-->
+                                    <VBox fx:id="vbSoDoGhe" managed="true" spacing="15"
+                                          style="-fx-border-color: #ccc; -fx-padding: 15;" visible="true"
+                                          VBox.vgrow="ALWAYS" alignment="CENTER">
+                                        <!--                                <VBox.margin>-->
+                                        <!--                                    <Insets top="5" />-->
+                                        <!--                                </VBox.margin>-->
+
+                                        <children>
+                                            <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                                                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0"
+                                                      prefWidth="647.0" xmlns="http://javafx.com/javafx/25"
+                                                      xmlns:fx="http://javafx.com/fxml/1">
+                                                <columnConstraints>
+                                                    <ColumnConstraints hgrow="ALWAYS" maxWidth="189.6" minWidth="10.0"
+                                                                       prefWidth="166.40001220703124"/>
+                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.1999755859375"
+                                                                       minWidth="10.0" prefWidth="50"/>
+                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="10.0"
+                                                                       prefWidth="120"/>
+                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="350" minWidth="10.0"
+                                                                       prefWidth="300"/>
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                                    vgrow="SOMETIMES"/>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                                    vgrow="SOMETIMES"/>
+                                                </rowConstraints>
+                                                <children>
+                                                    <Label text="SƠ ĐỒ GHẾ NGỒI" GridPane.valignment="TOP">
+                                                        <font>
+                                                            <Font name="System Bold" size="15.0"/>
+                                                        </font>
+                                                        <GridPane.margin>
+                                                            <Insets/>
+                                                        </GridPane.margin>
+                                                    </Label>
+                                                    <HBox prefHeight="100.0" prefWidth="300.0" GridPane.columnIndex="3">
+                                                        <children>
+                                                            <VBox prefHeight="64.0" prefWidth="300.0" spacing="5">
+                                                                <children>
+                                                                    <HBox prefHeight="100.0" prefWidth="280.0">
+                                                                        <children>
+                                                                            <Button mnemonicParsing="false"
+                                                                                    prefWidth="15.0"
+                                                                                    style="-fx-background-radius: 5; -fx-background-color: #FF7E29; -fx-border-color: black; -fx-border-radius: 5;">
+                                                                                <font>
+                                                                                    <Font size="5.0"/>
+                                                                                </font>
+                                                                            </Button>
+                                                                            <Label prefWidth="200.0"
+                                                                                   text="Giường nằm khoang 6 điều hòa">
+                                                                                <HBox.margin>
+                                                                                    <Insets left="10.0"/>
+                                                                                </HBox.margin>
+                                                                                <font>
+                                                                                    <Font size="10.0"/>
+                                                                                </font>
+                                                                            </Label>
+                                                                        </children>
+                                                                    </HBox>
+                                                                    <HBox prefHeight="100.0" prefWidth="280.0">
+                                                                        <children>
+                                                                            <Button mnemonicParsing="false"
+                                                                                    prefWidth="15.0"
+                                                                                    style="-fx-background-radius: 5; -fx-background-color: #FFDD70; -fx-border-color: black; -fx-border-radius: 5;">
+                                                                                <font>
+                                                                                    <Font size="5.0"/>
+                                                                                </font>
+                                                                            </Button>
+                                                                            <Label prefWidth="200"
+                                                                                   text="Giường nằm khoang 4 điều hòa">
+                                                                                <HBox.margin>
+                                                                                    <Insets left="10.0"/>
+                                                                                </HBox.margin>
+                                                                                <font>
+                                                                                    <Font size="10.0"/>
+                                                                                </font>
+                                                                            </Label>
+                                                                        </children>
+                                                                    </HBox>
+                                                                    <HBox prefHeight="100.0" prefWidth="280.0">
+                                                                        <children>
+                                                                            <Button mnemonicParsing="false"
+                                                                                    prefWidth="15.0"
+                                                                                    style="-fx-background-radius: 5; -fx-background-color: #F52827; -fx-border-color: black; -fx-border-radius: 5;">
+                                                                                <font>
+                                                                                    <Font size="5.0"/>
+                                                                                </font>
+                                                                            </Button>
+                                                                            <Label prefWidth="200"
+                                                                                   text="Giường nằm khoang 2 VIP">
+                                                                                <HBox.margin>
+                                                                                    <Insets left="10.0"/>
+                                                                                </HBox.margin>
+                                                                                <font>
+                                                                                    <Font size="10.0"/>
+                                                                                </font>
+                                                                            </Label>
+                                                                        </children>
+                                                                    </HBox>
+
+                                                                </children>
+                                                            </VBox>
+
+                                                        </children>
+                                                        <GridPane.margin>
+                                                            <Insets left="20"/>
+                                                        </GridPane.margin>
+
+                                                    </HBox>
+                                                    <!--                                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">-->
+                                                    <!--                                                        <children>-->
+                                                    <!--                                                            <Button mnemonicParsing="false" prefWidth="15.0" style="-fx-background-color: #FF7E29; -fx-background-radius: 5; -fx-border-color: black; -fx-border-radius: 5;">-->
+                                                    <!--                                                                <font>-->
+                                                    <!--                                                                    <Font size="5.0" />-->
+                                                    <!--                                                                </font>-->
+                                                    <!--                                                            </Button>-->
+                                                    <!--                                                            <Label text="Giường nằm khoang 6 điều hòa">-->
+                                                    <!--                                                                <HBox.margin>-->
+                                                    <!--                                                                    <Insets left="10.0" />-->
+                                                    <!--                                                                </HBox.margin>-->
+                                                    <!--                                                                <font>-->
+                                                    <!--                                                                    <Font size="10.0" />-->
+                                                    <!--                                                                </font>-->
+                                                    <!--                                                            </Label>-->
+                                                    <!--                                                        </children>-->
+                                                    <!--                                                    </HBox>-->
+                                                    <!--                                                    <Button alignment="BOTTOM_RIGHT" contentDisplay="RIGHT"-->
+                                                    <!--                                                            mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0"-->
+                                                    <!--                                                            style="-fx-background-color: red;" text="Bỏ chọn tất cả"-->
+                                                    <!--                                                            textFill="WHITE" GridPane.columnIndex="3"-->
+                                                    <!--                                                            GridPane.rowIndex="1" GridPane.valignment="BOTTOM">-->
+                                                    <!--                                                        <GridPane.margin>-->
+                                                    <!--                                                            <Insets bottom="10.0"/>-->
+                                                    <!--                                                        </GridPane.margin>-->
+                                                    <!--                                                    </Button>-->
+                                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2"
+                                                          spacing="5" style="-fx-padding: 20 0 0 0">
+                                                        <children>
+                                                            <HBox prefHeight="100.0" prefWidth="100.0">
+                                                                <children>
+                                                                    <Button mnemonicParsing="false" prefWidth="15.0"
+                                                                            style="-fx-background-radius: 5; -fx-background-color: #CAAE88; -fx-border-color: black; -fx-border-radius: 5;">
+                                                                        <font>
+                                                                            <Font size="5.0"/>
+                                                                        </font>
+                                                                    </Button>
+                                                                    <Label text="Ghế ngồi cứng">
+                                                                        <HBox.margin>
+                                                                            <Insets left="10.0"/>
+                                                                        </HBox.margin>
+                                                                        <font>
+                                                                            <Font size="10.0"/>
+                                                                        </font>
+                                                                    </Label>
+                                                                </children>
+                                                            </HBox>
+                                                            <HBox prefHeight="100.0" prefWidth="100.0">
+                                                                <children>
+                                                                    <Button mnemonicParsing="false" prefWidth="15.0"
+                                                                            style="-fx-background-radius: 5; -fx-background-color: #A7DAB1; -fx-border-color: black; -fx-border-radius: 5;">
+                                                                        <font>
+                                                                            <Font size="5.0"/>
+                                                                        </font>
+                                                                    </Button>
+                                                                    <Label text="Ghế ngồi mềm">
+                                                                        <HBox.margin>
+                                                                            <Insets left="10.0"/>
+                                                                        </HBox.margin>
+                                                                        <font>
+                                                                            <Font size="10.0"/>
+                                                                        </font>
+                                                                    </Label>
+                                                                </children>
+                                                            </HBox>
+                                                            <HBox prefHeight="100.0" prefWidth="100.0">
+                                                                <children>
+                                                                    <Button mnemonicParsing="false" prefWidth="15.0"
+                                                                            style="-fx-background-radius: 5; -fx-background-color: #559DEA; -fx-border-color: black; -fx-border-radius: 5;">
+                                                                        <font>
+                                                                            <Font size="5.0"/>
+                                                                        </font>
+                                                                    </Button>
+                                                                    <Label text="Ghế đang chọn">
+                                                                        <HBox.margin>
+                                                                            <Insets left="10.0"/>
+                                                                        </HBox.margin>
+                                                                        <font>
+                                                                            <Font size="10.0"/>
+                                                                        </font>
+                                                                    </Label>
+                                                                </children>
+                                                            </HBox>
+                                                            <HBox prefHeight="100.0" prefWidth="100.0">
+                                                                <children>
+                                                                    <Button mnemonicParsing="false" prefWidth="15.0"
+                                                                            style="-fx-background-radius: 5; -fx-background-color: #E0E0E0; -fx-border-color: black; -fx-border-radius: 5;">
+                                                                        <font>
+                                                                            <Font size="5.0"/>
+                                                                        </font>
+                                                                    </Button>
+                                                                    <Label text="Ghế đã đặt">
+                                                                        <HBox.margin>
+                                                                            <Insets left="10.0"/>
+                                                                        </HBox.margin>
+                                                                        <font>
+                                                                            <Font size="10.0"/>
+                                                                        </font>
+                                                                    </Label>
+                                                                </children>
+                                                            </HBox>
+                                                        </children>
+                                                    </VBox>
+                                                    <!--                                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">-->
+                                                    <!--                                                        <children>-->
+                                                    <!--                                                            <Button mnemonicParsing="false" prefWidth="15.0" style="-fx-background-color: #E74C3C; -fx-background-radius: 5; -fx-border-color: black; -fx-border-radius: 5;">-->
+                                                    <!--                                                                <font>-->
+                                                    <!--                                                                    <Font size="5.0" />-->
+                                                    <!--                                                                </font>-->
+                                                    <!--                                                            </Button>-->
+                                                    <!--                                                            <Label text="Ghế đã được đặt">-->
+                                                    <!--                                                                <font>-->
+                                                    <!--                                                                    <Font size="10.0" />-->
+                                                    <!--                                                                </font>-->
+                                                    <!--                                                                <HBox.margin>-->
+                                                    <!--                                                                    <Insets left="10.0" />-->
+                                                    <!--                                                                </HBox.margin>-->
+                                                    <!--                                                            </Label>-->
+                                                    <!--                                                        </children>-->
+                                                    <!--                                                    </HBox>-->
+                                                </children>
+                                            </GridPane>
+                                            <ScrollPane fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER"
+                                                        prefWidth="280" style="-fx-background-color: transparent;"
+                                                        vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+                                                <VBox fx:id="soDoGhe">
+                                                    <padding>
+                                                        <Insets bottom="10" left="10" right="10" top="10"/>
+                                                    </padding>
+                                                </VBox>
+
+                                            </ScrollPane>
+                                        </children>
+                                        <BorderPane.margin>
+                                            <Insets top="5.0"/>
+                                        </BorderPane.margin>
+
+                                    </VBox>
+
+                                </VBox>
+                            </center>
+                        </BorderPane>
+
+                    </VBox>
+
+
+                    <!-- right -->
+                    <BorderPane visible="true" managed="true" fx:id="pnRight" prefWidth="924.0">
+                        <center>
+
+                            <VBox fx:id="thongTinDoiVe" alignment="TOP_CENTER" style="-fx-border-color: gray;"
+                                  BorderPane.alignment="CENTER">
+                                <children>
+                                    <Label style="-fx-font-weight: bold; -fx-font-size: 15;"
+                                           text="THÔNG TIN KHÁCH HÀNG MUA VÉ">
+                                        <VBox.margin>
+                                            <Insets bottom="20.0" top="5.0"/>
+                                        </VBox.margin>
+                                    </Label>
+                                    <GridPane hgap="5.0" style="-fx-border-color: gray; -fx-border-radius: 10;"
+                                              vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="170"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="170"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <Label text="Họ tên:"/>
+                                            <Label text="CCCD:" GridPane.rowIndex="1"/>
+                                            <Label text="Số điện thoại:" GridPane.columnIndex="2"/>
+                                            <Label text="Ngày sinh:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtHoTen" GridPane.columnIndex="1"/>
+                                            <TextField fx:id="txtCCCD_KH" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtSDT_KH" GridPane.columnIndex="3"/>
+                                            <TextField fx:id="txtNgaySinh" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="1"/>
+                                        </children>
+                                        <VBox.margin>
+                                            <Insets/>
+                                        </VBox.margin>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        </padding>
+
+                                    </GridPane>
+
+                                    <!-- thong tin ve tau cu -->
+                                    <Label style="-fx-font-weight: bold; -fx-font-size: 15;" text="THÔNG TIN VÉ TÀU CŨ">
+                                        <VBox.margin>
+                                            <Insets bottom="20.0" top="5.0"/>
+                                        </VBox.margin>
+                                    </Label>
+                                    <GridPane alignment="CENTER" hgap="5.0"
+                                              style="-fx-border-color: gray; -fx-border-radius: 10;" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="170"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="170"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <Label text="Hành khách:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                            <TextField fx:id="txtHanhKhachCu" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="0" minWidth="150"/>
+
+                                            <Label text="CCCD:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                            <TextField fx:id="txtCCCD_VeTraCu" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="0"/>
+
+
+                                            <Label text="Ngày khởi hành:" GridPane.columnIndex="0"
+                                                   GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtNgayKhoiHanhCu" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="1"/>
+
+                                            <Label text="Ngày đến:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtNgayDenCu" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="1"/>
+
+
+                                            <Label text="Toa-khoang-ghế:" GridPane.rowIndex="2"/>
+                                            <TextField fx:id="txtToa_Khoang_GheCu" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="2"/>
+
+                                            <Label text="Ngày đặt:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                            <TextField fx:id="txtNgayDatCu" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="2"/>
+
+
+                                            <Label text="Chuyến tàu:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                            <TextField fx:id="txtChuyenTauCu" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="3"/>
+
+                                            <Label text="Loại ghế:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                                            <TextField fx:id="txtLoaiGhe_VeTraCu" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="3"/>
+
+
+                                            <Label text="Tổng tiền:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                            <TextField fx:id="txtTongTien_VeTraCu" GridPane.columnIndex="1"
+                                                       GridPane.columnSpan="3" GridPane.rowIndex="4"/>
+
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        </padding>
+                                    </GridPane>
+
+                                    <!-- chi tiet thong tin ve tau moi -->
+                                    <Label style="-fx-font-weight: bold; -fx-font-size: 15;"
+                                           text="THÔNG TIN VÉ TÀU MỚI">
+                                        <VBox.margin>
+                                            <Insets bottom="20.0" top="5.0"/>
+                                        </VBox.margin>
+                                    </Label>
+                                    <GridPane alignment="CENTER" hgap="5.0"
+                                              style="-fx-border-color: gray; -fx-border-radius: 10;" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="170"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="170"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <Label text="Hành khách:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                            <TextField fx:id="txtHanhKhachMoi" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="0"/>
+
+                                            <Label text="Số điện thoại:" GridPane.columnIndex="2"
+                                                   GridPane.rowIndex="0"/>
+                                            <TextField fx:id="txtSoDienThoaiMoi" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="0"/>
+
+
+                                            <Label text="Ngày khởi hành:" GridPane.columnIndex="0"
+                                                   GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtNgayKhoiHanhMoi" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="1"/>
+
+                                            <Label text="Ngày đến:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtNgayDenMoi" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="1"/>
+
+
+                                            <Label text="Toa-khoang-ghế:" GridPane.rowIndex="2"/>
+                                            <TextField fx:id="txtToaKhoangGheMoi" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="2"/>
+
+                                            <Label text="Ngày đặt:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                            <TextField fx:id="txtNgayDatMoi" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="2"/>
+
+
+                                            <Label text="Chuyến tàu:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                            <TextField fx:id="txtChuyenTauMoi" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="3"/>
+
+                                            <Label text="Loại ghế:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                                            <TextField fx:id="txtLoaiGheMoi" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="3"/>
+
+
+                                            <Label text="Tổng tiền:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                            <TextField fx:id="txtTongTienMoi" GridPane.columnIndex="1"
+                                                       GridPane.columnSpan="3" GridPane.rowIndex="4"/>
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        </padding>
+                                    </GridPane>
+                                    <Button fx:id="btnChapNhanDoiVe" mnemonicParsing="false" onAction="#chotDoiVe"
+                                            style="-fx-background-color: #52CCF6; -fx-text-fill: white" text="Đổi vé">
+                                        <VBox.margin>
+                                            <Insets top="20.0"/>
+                                        </VBox.margin>
+                                    </Button>
+
+
+                                    <!-- chi tiet hoa don -->
+                                    <Label fx:id="lblChiTietHoaDon" visible="true" managed="true"
+                                           style="-fx-font-weight: bold; -fx-font-size: 15;" text="CHI TIẾT HOÁ ĐƠN">
+                                        <VBox.margin>
+                                            <Insets bottom="20.0" top="5.0"/>
+                                        </VBox.margin>
+                                    </Label>
+                                    <GridPane fx:id="pnChiTietHoaDon" visible="true" managed="true" alignment="CENTER"
+                                              hgap="5.0" style="-fx-border-color: gray; -fx-border-radius: 10;"
+                                              vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="100"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="150"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="100"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="150"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                            <RowConstraints vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <Label text="Khách hàng:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                            <TextField fx:id="txtKhachHang" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="0"/>
+
+                                            <Label text="Người lập HĐ:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                            <TextField fx:id="txtNguoiLapHD" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="0"/>
+
+                                            <Label text="Ngày lập HĐ:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtNgayLapHD" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="1"/>
+
+                                            <Label text="Thành tiền:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtThanhTien_DoiVe" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="1"/>
+
+                                            <Label text="Mã KM:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                            <TextField fx:id="txtMaKhuyenMai" onAction="#onKiemTraMaKhuyenMai"
+                                                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                            <Label text="Số tiền KM:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                            <TextField fx:id="txtSoTienKhuyenMai" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="2"/>
+
+                                            <Label text="Tổng tiền:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                            <TextField fx:id="txtTongTienCuoiCung" GridPane.columnIndex="1"
+                                                       GridPane.columnSpan="3" GridPane.rowIndex="3"/>
+
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        </padding>
+
+                                    </GridPane>
+                                    <Button fx:id="btnXacNhan" visible="true" managed="true" mnemonicParsing="false"
+                                            onAction="#xacNhanDoiVe"
+                                            style="-fx-background-color: #52CCF6; -fx-text-fill: white" text="Xác nhận">
+                                        <VBox.margin>
+                                            <Insets top="20.0"/>
+                                        </VBox.margin>
+                                    </Button>
+                                </children>
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                </padding>
+                            </VBox>
+
+                        </center>
+
+                        <right>
+                            <VBox fx:id="pnHinhThucThanhToan" alignment="TOP_CENTER" managed="false" spacing="20.0"
+                                  style="-fx-border-color: gray;" visible="false" BorderPane.alignment="CENTER">
+                                <BorderPane prefHeight="670.0" prefWidth="274.0"
+                                            style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 6;"
+                                            BorderPane.alignment="CENTER">
+                                    <!--label thanh toan -->
+                                    <top>
+                                        <Label fx:id="lblThanhToan"
+                                               style="-fx-font-size: 16; -fx-font-weight: bold; -fx-label-padding: 20;"
+                                               text="Hình thức thanh toán" BorderPane.alignment="CENTER"/>
+                                    </top>
+
+                                    <!-- hinh thuc thanh toan + noi dung -->
+                                    <center>
+                                        <VBox spacing="15" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <!-- chon cac hinh thuc thanh toan -->
+                                                <VBox alignment="TOP_CENTER" spacing="15"
+                                                      style="-fx-border-color: #bbb; -fx-border-radius: 8; -fx-padding: 15;"
+                                                      BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <Label style="-fx-font-weight: bold; -fx-font-size: 13;"
+                                                               text="Chọn phương thức thanh toán:"/>
+                                                        <VBox alignment="CENTER" spacing="5"
+                                                              style="-fx-padding: 5 20 5 30;">
+                                                            <children>
+                                                                <HBox alignment="CENTER_LEFT">
+                                                                    <children>
+                                                                        <RadioButton fx:id="radTienMat" selected="true"
+                                                                                     text="Tiền mặt">
+                                                                            <HBox.margin>
+                                                                                <Insets/>
+                                                                            </HBox.margin>
+                                                                        </RadioButton>
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox alignment="CENTER_LEFT">
+                                                                    <children>
+                                                                        <RadioButton fx:id="radChuyenKhoan"
+                                                                                     text="Chuyển khoản"/>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                        <Button fx:id="btnPhuongThucTT"
+                                                                onAction="#onXacNhanPhuongThucThanhToan"
+                                                                style="-fx-background-color: #52CCF6; -fx-background-radius: 10; -fx-text-fill: white; -fx-padding: 6 15;"
+                                                                text="Xác nhận"/>
+                                                    </children>
+                                                </VBox>
+
+                                                <!--content tuong ung voi hinh thuc tt-->
+                                                <StackPane fx:id="pnThongTinThanhToan"
+                                                           style="-fx-border-color: #aaa; -fx-border-radius: 8; -fx-padding: 2 10 10 2;"
+                                                           BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                                                    <!--
+                                                        Code:
+                                                        - Chuyển khoản -> hiển thị VBox chứa mã QR + số tiền
+                                                        - Tiền mặt -> hiển thị VBox chứa:
+                                                            + số tiền phải trả
+                                                            + số tiền khách đưa (có gợi ý sẵn)
+                                                            + số tiền thối lại
+                                                    -->
+                                                </StackPane>
+                                            </children>
+                                        </VBox>
+                                    </center>
+
+                                    <!--ket thuc quy trinh dat ve -->
+                                    <bottom>
+                                        <HBox alignment="CENTER" style="-fx-padding: 10;" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Button fx:id="btnInVe" onAction="#onInVe"
+                                                        style="-fx-background-color: #52CCF6; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"
+                                                        text="In vé"/>
+                                                <Button onAction="#ketThuc" fx:id="btnKetThuc"
+                                                        style="-fx-background-color: #52CCF6; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"
+                                                        text="Kết thúc">
+                                                    <HBox.margin>
+                                                        <Insets left="20.0"/>
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </bottom>
+
+                                </BorderPane>
+                            </VBox>
+                        </right>
+                    </BorderPane>
+
+                </items>
+            </SplitPane>
+            <!--            </StackPane>-->
+        </content>
+    </ScrollPane>
+</AnchorPane>

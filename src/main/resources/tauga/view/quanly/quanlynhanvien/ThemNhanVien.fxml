@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- phan code -->
+
+<VBox fx:id="main" prefHeight="800.0" prefWidth="1532.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ql.nhanvien.ThemNhanVien">
+        <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <VBox prefHeight="270.0" prefWidth="338.0">
+                        <children>
+                            <StackPane prefHeight="150.0" prefWidth="218.0">
+                                <children>
+                                    <ImageView fx:id="imgNhanVien" fitHeight="270.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true" smooth="true">
+                                        <image>
+                                            <Image url="@../../../img/account.png" />
+                                        </image>
+                                        <StackPane.margin>
+                                            <Insets />
+                                        </StackPane.margin>
+                                    </ImageView>
+                                </children>
+                                <VBox.margin>
+                                    <Insets left="20.0" right="20.0" top="20.0" />
+                                </VBox.margin>
+                            </StackPane>
+                            <Button fx:id="btnChonAnh" mnemonicParsing="false" onAction="#onChonAnh" prefHeight="26.0" prefWidth="182.0" style="-fx-background-color: #52CCF6;" text="Chọn ảnh" textFill="WHITE">
+                                <VBox.margin>
+                                    <Insets left="80.0" top="20.0" />
+                                </VBox.margin>
+                                <font>
+                                    <Font name="System Bold" size="12.0" />
+                                </font>
+                            </Button>
+                        </children>
+                    </VBox>
+            <GridPane hgap="20.0" prefHeight="273.0" prefWidth="1000.0" vgap="15.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.20001220703125" minWidth="10.0" prefWidth="105.99998779296875" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.00000762939453" minWidth="10.0" prefWidth="166.00001220703126" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.4000244140625" minWidth="10.0" prefWidth="105.19997558593747" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.8000183105469" minWidth="10.0" prefWidth="148.4000244140625" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="298.5999633789062" minWidth="10.0" prefWidth="152.00009765624998" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.19997558593752" minWidth="10.0" prefWidth="219.99990234375002" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="72.4" minHeight="10.0" prefHeight="72.4" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="50.79999389648438" minHeight="10.0" prefHeight="40.400000000000006" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                              <Label prefHeight="18.0" prefWidth="110.0" text="Mã nhân viên: ">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="txtMaNhanVien" GridPane.columnIndex="1" />
+                              <Label prefHeight="18.0" prefWidth="115.0" text="Tên nhân viên: " GridPane.rowIndex="1">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="txtTenNhanVien" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Giới tính: " GridPane.rowIndex="2">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <children>
+                                    <RadioButton fx:id="rbNam" mnemonicParsing="false" text="Nam">
+                                        <HBox.margin>
+                                            <Insets />
+                                        </HBox.margin>
+                                        <font>
+                                            <Font name="System Bold" size="12.0" />
+                                        </font>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rbNu" mnemonicParsing="false" text="Nữ">
+                                        <HBox.margin>
+                                            <Insets />
+                                        </HBox.margin>
+                                        <font>
+                                            <Font name="System Bold" size="12.0" />
+                                        </font>
+                                    </RadioButton>
+                                </children>
+                            </HBox>
+                              <Label text="Ngày sinh: " GridPane.rowIndex="3">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <DatePicker fx:id="dpNgaySinh" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="CCCD: " GridPane.columnIndex="2">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="txtCCCD" GridPane.columnIndex="3" />
+                              <Label text="Email: " GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="txtEmail" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label prefHeight="18.0" prefWidth="106.0" text="Số điện thoại: " GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="txtSdt" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Label text="Vai trò: " GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <ComboBox fx:id="cbVaiTro" prefHeight="26.0" prefWidth="169.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <Label prefHeight="18.0" prefWidth="162.0" text="Ngày bắt đầu làm việc: " GridPane.columnIndex="4">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <DatePicker fx:id="dpNgayBatDauLamViec" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="5" />
+                              <Label prefHeight="18.0" prefWidth="155.0" text="Trạng thái làm việc: " GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </Label>
+                              <ComboBox fx:id="cbTrangThaiLamViec" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                                <children>
+                                    <Button mnemonicParsing="false" onAction="#onLamMoi" prefHeight="26.0" prefWidth="76.0" style="-fx-background-color: #52CCF6;" text="Làm mới" textFill="WHITE">
+                                        <HBox.margin>
+                                            <Insets />
+                                        </HBox.margin>
+                                        <font>
+                                            <Font name="System Bold" size="12.0" />
+                                        </font>
+                                    </Button>
+                        <Button mnemonicParsing="false" onAction="#hienThiDanhSachNhanVien" prefHeight="26.0" prefWidth="88.0" style="-fx-background-color: #52CCF6;" text="Hiển thị Ds" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                                </children>
+                            </HBox>
+                              <Button mnemonicParsing="false" onAction="#onThemNhanVien" prefHeight="26.0" prefWidth="82.0" style="-fx-background-color: #52CCF6;" text="Thêm" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                              </Button>
+               </children>
+            </GridPane>
+                </children>
+            </HBox>
+            <ScrollPane prefHeight="395.0" prefWidth="1332.0">
+                <content>
+                    <TableView fx:id="tableNhanVien" prefHeight="393.0" prefWidth="1331.0">
+                        <columns>
+                            <TableColumn fx:id="maNVCol" prefWidth="75.0" text="Mã NV" />
+                            <TableColumn fx:id="tenNVCol" prefWidth="189.5999298095703" text="Tên NV" />
+                            <TableColumn fx:id="gioiTinhCol" prefWidth="78.40011596679688" text="Giới tính" />
+                            <TableColumn fx:id="ngaySinhCol" prefWidth="121.5999755859375" text="Ngày sinh" />
+                            <TableColumn fx:id="cccdCol" prefWidth="88.0" text="CCCD" />
+                            <TableColumn fx:id="emailCol" prefWidth="204.00006103515625" text="Email" />
+                            <TableColumn fx:id="sdtCol" prefWidth="140.00006103515625" text="Số điện thoại" />
+                            <TableColumn fx:id="ngayBatDauLamViecCol" prefWidth="180.7999267578125" text="Ngày bắt đầu làm việc" />
+                            <TableColumn fx:id="vaiTroCol" minWidth="0.0" prefWidth="109.59991455078125" text="Vai trò" />
+                            <TableColumn fx:id="trangThaiCol" prefWidth="148.0" text="Trạng thái làm việc" />
+                        </columns>
+                    </TableView>
+                </content>
+                <VBox.margin>
+                    <Insets bottom="5.0" left="10.0" right="10.0" top="20.0" />
+                </VBox.margin>
+            </ScrollPane>
+        </children>
+    </VBox>

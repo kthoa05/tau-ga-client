@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.nv.ve.form.FormSoDoGhe"
+      fx:id="vbSoDoGhe" managed="true" spacing="15"
+      style="-fx-border-color: #ccc; -fx-border-radius: 8; -fx-padding: 15;" visible="true"
+      VBox.vgrow="ALWAYS">
+    <VBox.margin>
+        <Insets top="5"/>
+    </VBox.margin>
+
+    <children>
+        <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+            <HBox alignment="CENTER">
+
+            <Label text="SƠ ĐỒ GHẾ NGỒI">
+                <font>
+                    <Font name="System Bold" size="16" />
+                </font>
+            </Label>
+            </HBox>
+            <HBox style="-fx-padding: 10 0 0 0" alignment="CENTER">
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #CAAE88; -fx-border-color: black; -fx-border-radius: 5;" onAction="#locGheNgoiCung">
+<!--                <HBox.margin>-->
+<!--                    <Insets left="50.0" />-->
+<!--                </HBox.margin>-->
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="Ghế ngồi cứng">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #A7DAB1; -fx-border-color: black; -fx-border-radius: 5;" onAction="#locGheNgoiMem">
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="Ghế ngồi mềm">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #FF7E29; -fx-border-color: black; -fx-border-radius: 5;" onAction="#locKhoang6">
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="GN khoang 6">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #FFDD70; -fx-border-color: black; -fx-border-radius: 5;" onAction="#locKhoang4">
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="GN khoang 4">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #F52827; -fx-border-color: black; -fx-border-radius: 5;" onAction="#locKhoang2VIP">
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="GN khoang 2 VIP">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+<!--            </HBox>-->
+<!--            <HBox style="-fx-padding: 10 0 0 0" alignment="CENTER">-->
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #559DEA; -fx-border-color: black; -fx-border-radius: 5;">
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="Đang chọn">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #E0E0E0; -fx-border-color: black; -fx-border-radius: 5;">
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="Đã đặt">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Button prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #E0E9BD; -fx-border-color: black; -fx-border-radius: 5;" onAction="#hienTatCaGhe">
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+                <font>
+                    <Font size="8.0" />
+                </font>
+            </Button>
+            <Label text="Tất cả ghế">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+
+            <Button onAction="#boChonTatCa" prefWidth="110" style="-fx-background-color: red; -fx-text-fill: white;" text="Bỏ chọn tất cả">
+                <HBox.margin>
+                    <Insets left="20.0" />
+                </HBox.margin>
+            </Button>
+            </HBox>
+        </VBox>
+
+
+        <ScrollPane fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER" prefWidth="280"
+                    style="-fx-background-color: transparent;" vbarPolicy="AS_NEEDED"
+                    VBox.vgrow="ALWAYS">
+            <VBox fx:id="soDoGhe">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10"/>
+                </padding>
+            </VBox>
+
+        </ScrollPane>
+    </children>
+    <BorderPane.margin>
+        <Insets top="5.0"/>
+    </BorderPane.margin>
+
+</VBox>

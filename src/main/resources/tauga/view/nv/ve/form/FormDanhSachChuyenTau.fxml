@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controller.nv.ve.form.FormDanhSachChuyenTau" fx:id="pnThongTinChuyenDi" maxHeight="880"
+           prefWidth="450">
+
+    <VBox fx:id="pnThongTinChuyenDiMotChieu" managed="true" spacing="20"
+          style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-padding: 25;"
+          visible="true">
+        <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 15;"
+                   text="THÔNG TIN CHUYẾN ĐI PHÙ HỢP"/>
+            <HBox alignment="CENTER" prefHeight="10.0" prefWidth="242.0">
+                <!--                                                <children>-->
+                <!--                                                    <Label text="Các chuyến đi sẵn có:"/>-->
+                <!--                                                </children>-->
+            </HBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true"
+                        style="-fx-background-color: transparent;">
+                <VBox fx:id="pnDanhSachChuyenDiMotChieu" spacing="15"
+                      style="-fx-padding: 10;"/>
+            </ScrollPane>
+        </children>
+    </VBox>
+    <VBox fx:id="pnThongTinChuyenDiKhuHoi" managed="false" spacing="15"
+          style="-fx-border-color: #ccc; -fx-border-radius: 8; -fx-padding: 15;"
+          visible="false">
+        <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 15;"
+                   text="THÔNG TIN CHUYẾN ĐI PHÙ HỢP"/>
+            <ScrollPane fitToHeight="true" fitToWidth="true"
+                        style="-fx-background-color: transparent;">
+                <VBox fx:id="pnDanhSachCacChuyenDi" spacing="15"
+                      style="-fx-padding: 10;">
+                    <children>
+                        <VBox prefHeight="100.0" prefWidth="100.0">
+                            <children>
+                                <Label text="Danh sách các chuyến đi:"/>
+                                <ScrollPane fitToHeight="true" fitToWidth="true">
+                                    <content>
+                                        <VBox fx:id="pnDanhSachChuyenDi" spacing="15"
+                                              style="-fx-padding: 10;"/>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="100.0" prefWidth="100.0">
+                            <children>
+                                <Label text="Danh sách các chuyến về:"/>
+                                <ScrollPane fitToHeight="true" fitToWidth="true">
+                                    <content>
+                                        <VBox fx:id="pnDanhSachChuyenVe" spacing="15"
+                                              style="-fx-padding: 10;"/>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </ScrollPane>
+        </children>
+    </VBox>
+    <BorderPane.margin>
+        <Insets left="5.0"/>
+
+    </BorderPane.margin>
+    <padding>
+        <Insets left="5"/>
+    </padding>
+
+</StackPane>

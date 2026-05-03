@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.SplitPane?>
+
+<!-- Mới vô full 100% màn hình form tim kiem chuyen tau
+                Có kết quả chuyến tàu thì chia làm đôi theo chiều ngang, form tìm kiếm bên trái, danh sách chuyến tàu bên phải (có scroll pane do)
+                Bấm vô chọn chuyến tàu đó, màn hình chia đôi theo chiều dọc, 50 trên là form tìm kiếm + danh chuyến tàu, 50 dưới là sơ dồ ghế ngồi
+                Chọn vô từng ghế, thêm vô bên phải thông tin khách hàng + vé tương ứng với ghe61,
+                Chọn Đặt vé thì hiện cthd, hd
+                Chọn Xác nận thì hiện màn hình thanh toán, quét ma4 kế tiếp bên phải
+            -->
+<ScrollPane fx:id="main"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.nv.ve.DatVe"
+            fitToHeight="true" fitToWidth="true">
+
+    <content>
+        <AnchorPane fx:id="rootStack" prefHeight="670" >
+
+            <!-- GIAI ĐOẠN 1: FORM TÌM KIẾM FULL MÀN HÌNH -->
+            <AnchorPane prefHeight="670" AnchorPane.topAnchor="0"
+                       AnchorPane.bottomAnchor="0"
+                       AnchorPane.leftAnchor="0"
+                       AnchorPane.rightAnchor="0">
+            <VBox fx:id="pnTimKiemFull"
+                  alignment="CENTER"
+                  visible="true" managed="true"
+                  spacing="10"
+                  fillWidth="true"
+                  style="-fx-background-color: white; -fx-padding: 20;"
+                  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                  AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+            >
+                <fx:include fx:id="formTimKiemController" source="form/FormTimKiemChuyenTau.fxml"/>
+            </VBox>
+            </AnchorPane>
+
+            <!-- GIAI ĐOẠN 2: NGANG 50-50 (TÌM KIẾM | DANH SÁCH CHUYẾN TÀU) -->
+            <SplitPane fx:id="spTimKiem_ChuyenTau"
+                       orientation="HORIZONTAL"
+                       dividerPositions="0.5"
+                       visible="false" managed="false"
+                       AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                       AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+                <VBox fx:id="pnTimKiemLeft"
+                      spacing="10"
+                      style="-fx-background-color: white; -fx-padding: 10;">
+                    <fx:include fx:id="formTimKiemLeftController" source="form/FormTimKiemChuyenTau.fxml"/>
+                </VBox>
+
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <StackPane fx:id="pnDanhSachChuyenTau"
+                               style="-fx-background-color: white;-fx-padding: 10;">
+                        <fx:include fx:id="formDanhSachChuyenTauController" source="form/FormDanhSachChuyenTau.fxml"/>
+                    </StackPane>
+                </ScrollPane>
+            </SplitPane>
+
+            <!-- GIAI ĐOẠN 3: DỌC 50-50 (TÌM KIẾM + DANH SÁCH | SƠ ĐỒ GHẾ) -->
+            <SplitPane fx:id="spThongTin_SoDo"
+                       orientation="VERTICAL"
+                       dividerPositions="0.5"
+                       visible="false" managed="false"
+                       AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                       AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+                <AnchorPane fx:id="apTren">
+                    <SplitPane fx:id="spTimKiem_DanhSach"
+                               orientation="HORIZONTAL"
+                               dividerPositions="0.5"
+                               AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                               AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                        <VBox fx:id="pnTimKiemTop"
+                              spacing="10"
+                              style="-fx-background-color: white; -fx-padding: 10;">
+                            <fx:include fx:id="formTimKiemTopController" source="form/FormTimKiemChuyenTau.fxml"/>
+                        </VBox>
+
+                        <ScrollPane fitToWidth="true" fitToHeight="true">
+                            <StackPane fx:id="pnDanhSachChuyenTauTop"
+                                       style="-fx-background-color: white; -fx-padding: 10;">
+                                <fx:include fx:id="danhSachChuyenTauTopController" source="form/FormDanhSachChuyenTau.fxml"/>
+                            </StackPane>
+                        </ScrollPane>
+                    </SplitPane>
+                </AnchorPane>
+
+                <VBox fx:id="pnSoDoGhe"
+                      spacing="10"
+                      style="-fx-background-color: white; -fx-padding: 10;">
+                    <fx:include fx:id="soDoGheController" source="form/FormSoDoGhe.fxml"/>
+                </VBox>
+            </SplitPane>
+
+<!--             GIAI ĐOẠN 4: BỔ SUNG PANEL BÊN PHẢI-->
+
+            <BorderPane fx:id="bpThongTinCuoi"
+                        visible="false" managed="false"
+                        style="-fx-background-color: white;"
+                        maxWidth="Infinity" maxHeight="Infinity"
+                        AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                        AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+<!--                <left>-->
+
+<!--                </left>-->
+
+                <center>
+                    <VBox fx:id="pnThongTinKhachHang"
+                          spacing="10"
+                          VBox.vgrow="ALWAYS"
+                          fillWidth="true"
+                          minWidth="700" minHeight="670"
+                          style="-fx-background-color: white; -fx-padding: 10;">
+
+                        <fx:include fx:id="thongTinKhachHangController" source="form/FormThongTinKhachHang.fxml" />
+                    </VBox>
+
+                </center>
+                <right>
+                    <VBox fx:id="pnThanhToan"
+                          spacing="10"
+                          VBox.vgrow="ALWAYS"
+                          fillWidth="true"
+
+                          style="-fx-background-color: white; -fx-padding: 10;">
+                        <fx:include fx:id="thanhToanController" source="form/FormHinhThucThanhToan.fxml"/>
+                    </VBox>
+                </right>
+            </BorderPane>
+
+        </AnchorPane>
+    </content>
+</ScrollPane>
+
+

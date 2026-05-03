@@ -1,0 +1,70 @@
+/* dashboard.css */
+
+/* background của toàn bộ scene nếu cần */
+.root {
+    -fx-font-family: "Segoe UI", "Roboto", "Arial";
+}
+
+/* Header title */
+.header-title {
+    -fx-font-size: 26px;
+    -fx-text-fill: #333333;
+    -fx-padding: 6 0 6 0;
+}
+
+/* Card chung (header cards) */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0.0, 0, 3);
+    -fx-min-width: 220;
+    -fx-alignment: center;
+}
+
+/* Các kiểu label trong card */
+.title {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+    -fx-font-weight: 600;
+}
+
+.value-blue {
+    -fx-font-size: 20px;
+    -fx-text-fill: #1E88E5; /* blue */
+    -fx-font-weight: bold;
+}
+
+.value-green {
+    -fx-font-size: 12px;
+    -fx-text-fill: #2E7D32; /* green */
+    -fx-font-weight: 600;
+}
+
+/* Chart card: bo góc, shadow giống card, nội dung căn giữa */
+.chart-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0.0, 0, 4);
+    -fx-min-width: 360;
+}
+
+/* Tiêu đề nhỏ cho chart */
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-alignment: center;
+    -fx-padding: 8 0 0 0;
+}
+
+/* Tinh chỉnh Chart (nếu muốn che grid line style, font,...) */
+.chart-legend {
+    -fx-padding: 8 0 8 0;
+}
+
+.chart-value-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}

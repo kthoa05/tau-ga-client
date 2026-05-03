@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.chart.BarChart?>
+<VBox prefWidth="1500" prefHeight="800"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ql.thongke.DoanhThuTheoNgay"
+      style="-fx-background-color: white;">
+
+    <HBox spacing="30" alignment="CENTER_LEFT" style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-width: 0 0 1 0;">
+        <padding>
+            <Insets top="20" right="30" bottom="20" left="30"/>
+        </padding>
+
+        <children>
+            <Label text="Thống kê doanh thu theo:" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #2c3e50;"/>
+
+            <fx:define>
+                <ToggleGroup fx:id="groupThongKe"/>
+            </fx:define>
+
+            <RadioButton text="Ngày" fx:id="rdNgay" toggleGroup="$groupThongKe" selected="true" style="-fx-cursor: hand; -fx-font-size: 14px;"/>
+            <RadioButton text="Tháng" fx:id="rdThang" toggleGroup="$groupThongKe" style="-fx-cursor: hand; -fx-font-size: 14px;"/>
+            <RadioButton text="Năm" fx:id="rdNam" toggleGroup="$groupThongKe" style="-fx-cursor: hand; -fx-font-size: 14px;"/>
+            <RadioButton text="Tùy chọn" fx:id="rdTuyChon" toggleGroup="$groupThongKe" style="-fx-cursor: hand; -fx-font-size: 14px;"/>
+        </children>
+    </HBox>
+
+    <StackPane VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+
+        <VBox fx:id="boxNgay" spacing="20" style="-fx-padding: 10;">
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Chọn ngày:" style="-fx-font-size: 14px;"/>
+                <DatePicker fx:id="dpNgay" prefWidth="220" promptText="Chọn ngày..."/>
+                <Button onAction="#btnThongKeNgay" text="Thống kê" style="-fx-background-color: #52CCF6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 25; -fx-cursor: hand;"/>
+            </HBox>
+
+            <SplitPane dividerPositions="0.35" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableNgay">
+                    <columns>
+                        <TableColumn fx:id="colNgay" text="Ngày " prefWidth="150"/>
+                        <TableColumn fx:id="colDoanhThu" text="Doanh thu (VNĐ)" prefWidth="250"/>
+                    </columns>
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                </TableView>
+                <BarChart fx:id="barChartNgay" title="Biểu đồ doanh thu trong ngày">
+                    <xAxis><CategoryAxis label="Ngày"/></xAxis>
+                    <yAxis><NumberAxis label="Doanh thu"/></yAxis>
+                </BarChart>
+            </SplitPane>
+        </VBox>
+
+        <VBox fx:id="boxThang" spacing="20" style="-fx-padding: 10;" visible="false" managed="false">
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Nhập tháng:" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="txtThang" promptText="Chọn tháng..." prefWidth="180" style="-fx-padding: 7;"/>
+                <TextField fx:id="txtThangNam" promptText="Chọn năm..." prefWidth="150" style="-fx-padding: 7;"/>
+                <Button onAction="#btnThongKeThang" text="Thống kê" style="-fx-background-color: #52CCF6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 25;"/>
+            </HBox>
+
+            <SplitPane dividerPositions="0.35" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableThang">
+                    <columns>
+                        <TableColumn fx:id="colThang" text="Tháng"/>
+                        <TableColumn fx:id="colDoanhThuThang" text="Doanh thu (VNĐ)"/>
+                    </columns>
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                </TableView>
+                <BarChart fx:id="barChartThang" title="Biểu đồ doanh thu trong tháng">
+                    <xAxis><CategoryAxis label="Ngày trong tháng" fx:id="xAxisThang"/></xAxis>
+                    <yAxis><NumberAxis label="Doanh thu"/></yAxis>
+                </BarChart>
+            </SplitPane>
+        </VBox>
+
+        <VBox fx:id="boxNam" spacing="20" style="-fx-padding: 10;" visible="false" managed="false">
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Nhập năm:" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="txtNam" promptText="Chọn năm..." prefWidth="150" style="-fx-padding: 7;"/>
+                <Button onAction="#btnThongKeNam" text="Thống kê" style="-fx-background-color: #52CCF6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 25;"/>
+            </HBox>
+
+            <SplitPane dividerPositions="0.35" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableNam">
+                    <columns>
+                        <TableColumn fx:id="colNam" text="Năm"/>
+                        <TableColumn fx:id="colDoanhThuNam" text="Doanh thu (VNĐ)"/>
+                    </columns>
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                </TableView>
+                <BarChart fx:id="barChartNam" title="Biểu đồ doanh thu theo năm">
+                    <xAxis><CategoryAxis label="Năm"/></xAxis>
+                    <yAxis><NumberAxis label="Doanh thu"/></yAxis>
+                </BarChart>
+            </SplitPane>
+        </VBox>
+
+        <VBox fx:id="boxTuyChon" spacing="20" style="-fx-padding: 10;" visible="false" managed="false">
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: #f1f3f5; -fx-padding: 12; -fx-border-radius: 5; -fx-border-color: #ced4da;">
+                <Label text="Từ ngày:"/>
+                <DatePicker fx:id="dpTuNgay"/>
+                <Label text="Đến ngày:"/>
+                <DatePicker fx:id="dpDenNgay"/>
+                <Button onAction="#btnThongKeTuyChon" text="Thống kê" style="-fx-background-color: #52CCF6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 25;"/>
+            </HBox>
+
+            <SplitPane dividerPositions="0.35" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableTuyChon">
+                    <columns>
+                        <TableColumn fx:id="colTuNgay" text="Từ ngày "/>
+                        <TableColumn fx:id="colDenNgay" text="Đến ngày "/>
+                        <TableColumn fx:id="colDoanhThuTuyChon" text="Doanh thu (VNĐ)"/>
+                    </columns>
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                </TableView>
+                <BarChart fx:id="barChartTuyChon" title="Biểu đồ doanh thu tùy chọn">
+                    <xAxis><CategoryAxis/></xAxis>
+                    <yAxis><NumberAxis/></yAxis>
+                </BarChart>
+            </SplitPane>
+        </VBox>
+
+    </StackPane>
+</VBox>
+
