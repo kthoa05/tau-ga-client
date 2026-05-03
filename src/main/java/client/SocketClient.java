@@ -23,4 +23,5 @@ public class SocketClient {
             return new Response(false, null, "Không thể kết nối tới server: " + e.getMessage());
         }
     }
+
 }
