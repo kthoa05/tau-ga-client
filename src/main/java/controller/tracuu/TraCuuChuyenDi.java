@@ -1,13 +1,21 @@
 package controller.tracuu;
 
+import dto.TaiKhoanDTO;
+import javafx.fxml.FXML;
+import dao.impl.ChuyenTauDaoImpl;
 import dto.ThongTinChuyenTauDTO;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import network.client.SocketClient;
+import network.common.CommandType;
+import network.common.Request;
+import network.common.Response;
+import network.common.request.ChuyenDiRequest;
+import network.common.request.TimKiemChuyenTauRequest;
 import service.IChuyenTauService;
 import service.impl.ChuyenTauServiceImpl;
 import utils.GiaoDienUtils;
@@ -34,12 +42,15 @@ public class TraCuuChuyenDi {
 
     private final IChuyenTauService chuyenTauService = new ChuyenTauServiceImpl();
     private final ObservableList<ThongTinChuyenTauDTO> chuyenDiList = FXCollections.observableArrayList();
+    private final SocketClient socketClient = new SocketClient();
 
     @FXML
     public void initialize() {
         try {
-            List<String> dsGaDi = chuyenTauService.layTatCaGa(true);
-            List<String> dsGaDen = chuyenTauService.layTatCaGa(false);
+//            List<String> dsGaDi = chuyenTauService.layTatCaGa(true);
+//            List<String> dsGaDen = chuyenTauService.layTatCaGa(false);
+            List<String> dsGaDi = layTatCaGa(true);
+            List<String> dsGaDen = layTatCaGa(false);
 
             cbGaDi.setItems(FXCollections.observableArrayList(dsGaDi));
             cbGaDen.setItems(FXCollections.observableArrayList(dsGaDen));
@@ -148,6 +159,16 @@ public class TraCuuChuyenDi {
         }
     }
 
+    public List<String> layTatCaGa(boolean layGa) {
+        ChuyenDiRequest chuyenDiRequest = new ChuyenDiRequest(layGa);
+        Request request = new Request(CommandType.SEARCH_ALL_GA, chuyenDiRequest);
+        Response response = socketClient.send(request);
+        if(!response.isSuccess() || !(response.getData() instanceof List<?> list)) {
+            return null;
+        }
+        return (List<String>) list;
+    }
+
     @FXML
     private void onTimKiem(ActionEvent event) {
         String gaDiRaw = cbGaDi.getValue();
@@ -158,8 +179,9 @@ public class TraCuuChuyenDi {
         String gaDen = (gaDenRaw == null || gaDenRaw.equals("Tất cả")) ? null : gaDenRaw;
 
         try {
-            List<ThongTinChuyenTauDTO> danhSachChuyenDi =
-                    chuyenTauService.timKiem(gaDi, gaDen, ngayDi);
+//            List<ThongTinChuyenTauDTO> danhSachChuyenDi =
+//                    chuyenTauService.timKiem(gaDi, gaDen, ngayDi);
+            List<ThongTinChuyenTauDTO> danhSachChuyenDi = timKiemChuyenDi(gaDi, gaDen, ngayDi);
             chuyenDiList.clear();
             if (danhSachChuyenDi == null || danhSachChuyenDi.isEmpty()) {
                 GiaoDienUtils.showThongBao(Alert.AlertType.INFORMATION, "Thông báo", "Không tìm thấy chuyến đi phù hợp.");
@@ -173,6 +195,15 @@ public class TraCuuChuyenDi {
         }
     }
 
+    private List<ThongTinChuyenTauDTO> timKiemChuyenDi(String gaDi, String gaDen, LocalDate ngayDi) {
+        TimKiemChuyenTauRequest payload = new TimKiemChuyenTauRequest(gaDi, gaDen, false, ngayDi, null);
+        Request request = new Request(CommandType.SEARCH_CHUYEN_DI, payload);
+        Response response = socketClient.send(request);
+        if (!response.isSuccess() || !(response.getData() instanceof List<?> list)) {
+            return null;
+        }
+        return (List<ThongTinChuyenTauDTO>) list;
+    }
     @FXML
     public void onXoaTrang(ActionEvent event) {
         cbGaDi.getSelectionModel().selectFirst();

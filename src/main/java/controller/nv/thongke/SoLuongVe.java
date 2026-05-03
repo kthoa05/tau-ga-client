@@ -13,6 +13,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import network.client.SocketClient;
+import network.common.CommandType;
+import network.common.Request;
+import network.common.Response;
+import network.common.request.ThongKeSoLuongVeByMaCaRequest;
+import network.common.request.ThongKeSoLuongVeRequest;
 import service.IThongKeService;
 import service.impl.ThongKeServiceImpl;
 import utils.TauGaUtils;
@@ -55,9 +61,11 @@ public class SoLuongVe {
     private TableColumn<ThongKeDTO, Double> tblTongSoVe;
 
     //service
-    private final IThongKeService thongKeService = new ThongKeServiceImpl();
+//    private final IThongKeService thongKeService = new ThongKeServiceImpl();
 
     private ObservableList<Integer> allCaLamViec;
+
+    private final SocketClient socketClient = new SocketClient();
 
 
     @FXML
@@ -175,13 +183,36 @@ public class SoLuongVe {
         }
 
         //load data table
-        var resultDataTbl = thongKeService.showTblFromDashboardForLV(stt);
+//        var resultDataTbl = thongKeService.showTblFromDashboardForLV(stt);
+        var resultDataTbl = getTblFromDashboardForLV(stt);
         ObservableList<ThongKeDTO> data = FXCollections.observableArrayList(resultDataTbl);
         tableView.setItems(data);
 
         //ve chart
-        List<ThongKeDTO> tongHopTheoDoanhThu = thongKeService.thongKeLoaiVeTuDashboard(CurrentUser.getMaCaLamViec());
+//        List<ThongKeDTO> tongHopTheoDoanhThu = thongKeService.thongKeLoaiVeTuDashboard(CurrentUser.getMaCaLamViec());
+        List<ThongKeDTO> tongHopTheoDoanhThu = thongKeLoaiVeTuDashboard(CurrentUser.getMaCaLamViec());
+
         this.showChart(tongHopTheoDoanhThu);
+    }
+
+    public ThongKeDTO getTblFromDashboardForLV(int sttCa) {
+        ThongKeSoLuongVeRequest tkRequest = new ThongKeSoLuongVeRequest(sttCa, null);
+        Request request = new Request(CommandType.THONG_KE_SL_VE_DASHBOARD, tkRequest);
+        Response response = socketClient.send(request);
+        if(!response.isSuccess() ||  !(response.getData() instanceof ThongKeDTO dto)) {
+            return null;
+        }
+        return (ThongKeDTO) dto;
+    }
+
+    public List<ThongKeDTO> thongKeLoaiVeTuDashboard(String maCa) {
+        ThongKeSoLuongVeByMaCaRequest payload =  new ThongKeSoLuongVeByMaCaRequest(maCa);
+        Request request = new Request(CommandType.THONG_KE_SL_VE_BY_MA_CA, payload);
+        Response response = socketClient.send(request);
+        if(!response.isSuccess() ||  !(response.getData() instanceof List<?> list)) {
+            return null;
+        }
+        return (List<ThongKeDTO>) list;
     }
 
     private void removeUnderlineHighlight(JFXComboBox<?> combo) {
@@ -209,13 +240,36 @@ public class SoLuongVe {
         var ngayLam = dateTimeNgayThongKe.getValue();
 
         //ve chart
-        var tongHopTheoDoanhThuChart = thongKeService.thongKeLoaiVeVeChart(soThuTuCa, ngayLam);
+//        var tongHopTheoDoanhThuChart = thongKeService.thongKeLoaiVeVeChart(soThuTuCa, ngayLam);
+        var tongHopTheoDoanhThuChart = thongKeLoaiVeChart(soThuTuCa, ngayLam);
         this.showChart(tongHopTheoDoanhThuChart);
 
         //fill data tbl
-        var resultDataTbl = thongKeService.thongKeLoaiVeForTbl(soThuTuCa, ngayLam);
+//        var resultDataTbl = thongKeService.thongKeLoaiVeForTbl(soThuTuCa, ngayLam);
+        var resultDataTbl = thongKeLoaiVeTable(soThuTuCa, ngayLam);
+
         ObservableList<ThongKeDTO> data = FXCollections.observableArrayList(resultDataTbl);
         tableView.setItems(data);
+    }
+
+    public List<ThongKeDTO> thongKeLoaiVeChart(int sttCa,  LocalDate ngayLam) {
+        ThongKeSoLuongVeRequest tkRequest = new ThongKeSoLuongVeRequest(sttCa, ngayLam);
+        Request request = new Request(CommandType.THONG_KE_SL_VE_CHART, tkRequest);
+        Response response = socketClient.send(request);
+        if(!response.isSuccess() ||  !(response.getData() instanceof List<?> list)) {
+            return null;
+        }
+        return (List<ThongKeDTO>) list;
+    }
+
+    public ThongKeDTO thongKeLoaiVeTable(int sttCa, LocalDate ngayLam) {
+        ThongKeSoLuongVeRequest tkRequest = new ThongKeSoLuongVeRequest(sttCa, ngayLam);
+        Request request = new Request(CommandType.THONG_KE_SL_VE_TABLE, tkRequest);
+        Response response = socketClient.send(request);
+        if(!response.isSuccess() ||  !(response.getData() instanceof ThongKeDTO dto)) {
+            return null;
+        }
+        return (ThongKeDTO) response.getData();
     }
 
     public void lamMoi(MouseEvent mouseEvent) {

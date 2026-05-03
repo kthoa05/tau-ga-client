@@ -1,5 +1,6 @@
 package controller.tracuu;
 
+import dao.impl.GaDaoImpl;
 import dto.GaDTO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,6 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.scene.control.Label;
+import network.client.SocketClient;
+import network.common.CommandType;
+import network.common.Request;
+import network.common.Response;
+import network.common.request.TimKiemGaRequest;
 import service.IGaService;
 import service.impl.GaServiceImpl;
 import utils.GiaoDienUtils;
@@ -34,11 +41,14 @@ public class TraCuuGa {
     private TextField txtDiaChi;
     private IGaService gaService = new GaServiceImpl();
     private ObservableList<GaDTO> gaList = FXCollections.observableArrayList();
+    private final SocketClient socketClient = new SocketClient();
 
     @FXML
     public void initialize() {
         try {
-            List<String> danhSachTenGa = gaService.getAllTenGa();
+//            List<String> danhSachTenGa = gaService.getAllTenGa();
+            List<String> danhSachTenGa = getAllTenGa();
+
             cbTenGa.setItems(FXCollections.observableArrayList(danhSachTenGa));
             cbTenGa.getItems().add(0, "Tất cả");
             cbTenGa.getSelectionModel().selectFirst();
@@ -120,18 +130,39 @@ public class TraCuuGa {
         }
     }
 
+    public List<String> getAllTenGa(){
+        Request request = new Request(CommandType.GET_ALL_TEN_GA, null);
+        Response response = socketClient.send(request);
+        if(!response.isSuccess() || !(response.getData() instanceof List<?> list)){
+            return null;
+        }
+        return (List<String>) list;
+    }
+
     @FXML
     private void onTimKiem(ActionEvent event) {
         gaList.clear();
         String tenGa = cbTenGa.getValue();
         String diaChi = txtDiaChi.getText();
 
-        List<GaDTO> results = gaService.timKiem(tenGa, diaChi);        if (results == null || results.isEmpty()) {
+//        List<GaDTO> results = gaService.timKiem(tenGa, diaChi);
+        List<GaDTO> results = timKiemGa(tenGa, diaChi);
+        if (results == null || results.isEmpty()) {
             GiaoDienUtils.showThongBao(Alert.AlertType.INFORMATION, "Thông báo", "Không tìm thấy ga phù hợp.");
         } else {
             gaList.addAll(results);
         }
         tableGa.refresh();
+    }
+
+    public List<GaDTO> timKiemGa(String tenGa, String diaChi){
+        TimKiemGaRequest payload = new TimKiemGaRequest(tenGa, diaChi);
+        Request request = new Request(CommandType.SEARCH_GA, payload);
+        Response response = socketClient.send(request);
+        if (!response.isSuccess() || !(response.getData() instanceof List<?> list)) {
+            return null;
+        }
+        return (List<GaDTO>) list;
     }
 
     private void loadData() {

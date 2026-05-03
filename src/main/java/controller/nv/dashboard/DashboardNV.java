@@ -1,6 +1,9 @@
 package controller.nv.dashboard;
 
+import controller.nv.thongke.DoanhThu;
 import dto.DashboardDTO;
+import dto.DoanhThuDTO;
+import entity.enums.CaLamViec;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +20,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Polygon;
+import network.client.SocketClient;
+import network.common.CommandType;
+import network.common.Request;
+import network.common.Response;
 import service.IDashboardNVService;
 import service.impl.DashboardServiceImpl;
 import utils.GiaoDienUtils;
@@ -24,6 +31,7 @@ import utils.TauGaUtils;
 import utils.consts.CurrentUser;
 import utils.enums.ManHinh;
 
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -46,7 +54,8 @@ public class DashboardNV {
     private Label txtTongDoanhThu;
 
     //service
-    private final IDashboardNVService dashboardNVService = new DashboardServiceImpl();
+//    private final IDashboardNVService dashboardNVService = new DashboardServiceImpl();
+    private final SocketClient socketClient = new SocketClient();
 
 
     @FXML
@@ -55,8 +64,22 @@ public class DashboardNV {
     }
 
     private void loadDashboardData() {
-        DashboardDTO dataDashboard = dashboardNVService.getThongTinDashboard();
+//        DashboardDTO dataDashboard = dashboardNVService.getThongTinDashboard();
+        DashboardDTO dataDashboard = getThongTinDashboardNV();
         if (dataDashboard == null) return;
+
+        CurrentUser.setMaCaLamViec(dataDashboard.getMaCa());
+        LocalTime gioBatDau = dataDashboard.getGioBatDau();
+        LocalTime gioKetThuc = dataDashboard.getGioKetThuc();
+        CaLamViec ca = CaLamViec.getByGioBatDauVaKetThuc(gioBatDau, gioKetThuc);
+        CurrentUser.setSoThuTuCa(ca.getSoThuTuCa());
+        CurrentUser.setNgayLamCuaCa(dataDashboard.getNgayLamViec());
+        CurrentUser.setIsFromDashboard(true);
+        System.out.println("=== SET DASHBOARD ===");
+        System.out.println(dataDashboard.getMaCa());
+        System.out.println(ca.getSoThuTuCa());
+        System.out.println(dataDashboard.getNgayLamViec());
+
 
         //lay field can thiet
         int tongVe = dataDashboard.getTongSoVeBanDuoc();
@@ -70,8 +93,10 @@ public class DashboardNV {
         txtTongDoanhThu.setText(String.format("%s VND", TauGaUtils.NumberUtils.formatNumber(doanhThu)));
 
         //lay data de ve chart
-        List<DashboardDTO> tongHopLoaiGhe = dashboardNVService.dashboardForLoaiGhe();
-        List<DashboardDTO> tongHopTheoDoanhThu = dashboardNVService.dashboardForDoanhThu();
+//        List<DashboardDTO> tongHopLoaiGhe = dashboardNVService.dashboardForLoaiGhe();
+//        List<DashboardDTO> tongHopTheoDoanhThu = dashboardNVService.dashboardForDoanhThu();
+        List<DashboardDTO> tongHopLoaiGhe = dashboardForLoaiGhe();
+        List<DashboardDTO> tongHopTheoDoanhThu = dashboardForDoanhThu();
 
         if (tongHopLoaiGhe == null || tongHopLoaiGhe.isEmpty()) {
             //todo: neu ko co data
@@ -137,6 +162,33 @@ public class DashboardNV {
         veMuiTenTrucY(doanhThuCa);
     }
 
+    public DashboardDTO getThongTinDashboardNV() {
+        Request request =  new Request(CommandType.THONG_KE_DASHBOARD, null);
+        Response response = socketClient.send(request);
+        if (!response.isSuccess() || !(response.getData() instanceof DashboardDTO dto)) {
+            return null;
+        }
+
+        return dto;
+    }
+    public List<DashboardDTO> dashboardForDoanhThu() {
+        Request request =  new Request(CommandType.THONG_KE_DASHBOARD_DOANH_THU, null);
+        Response response = socketClient.send(request);
+        if (!response.isSuccess() || !(response.getData() instanceof List<?> list)) {
+            return null;
+        }
+
+        return (List<DashboardDTO>) list;
+    }
+    public List<DashboardDTO> dashboardForLoaiGhe() {
+        Request request =  new Request(CommandType.THONG_KE_DASHBOARD_LOAI_GHE, null);
+        Response response = socketClient.send(request);
+        if (!response.isSuccess() || !(response.getData() instanceof List<?> list)) {
+            return null;
+        }
+
+        return (List<DashboardDTO>) list;
+    }
     private void ganTooltipChoPieChart(PieChart pieChart) {
 
         double tong = pieChart.getData()
@@ -157,7 +209,7 @@ public class DashboardNV {
                 double percent = data.getPieValue() / tong * 100;
 
                 Tooltip tooltip = new Tooltip(
-                                String.format("%.1f%%", percent)
+                        String.format("%.1f%%", percent)
                 );
                 tooltip.setStyle("-fx-font-size: 12; -fx-font-weight: bold;");
                 Tooltip.install(node, tooltip);
