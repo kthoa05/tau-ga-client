@@ -1,5 +1,9 @@
 package controller.ql.nhanvien;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
 import entity.NhanVienEntity;
 import entity.enums.GioiTinh;
 import entity.enums.TrangThaiLamViec;
@@ -9,21 +13,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
+import network.client.SocketClient;
+import network.common.CommandType;
+import network.common.Request;
+import network.common.Response;
 import service.INhanVienService;
 import service.impl.NhanVienServiceImpl;
 import utils.GiaoDienUtils;
 import utils.TauGaUtils;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.util.List;
 
 public class ThemNhanVien {
     @FXML
@@ -72,8 +78,7 @@ public class ThemNhanVien {
     @FXML
     public TableColumn<NhanVienEntity, TrangThaiLamViec> trangThaiCol;
 
-    private final INhanVienService nhanVienService = new NhanVienServiceImpl();
-    public Button btnChonAnh;
+    private final SocketClient socketClient = new SocketClient();    public Button btnChonAnh;
     public ImageView imgNhanVien;
     private File fileAnhDaChon;
 
@@ -213,81 +218,103 @@ public class ThemNhanVien {
         txtMaNhanVien.setEditable(false);
         txtMaNhanVien.setDisable(true);
         hienThiMaNhanVienMoi();
+        hienThiDanhSachNhanVien(null);
     }
 
     private void hienThiMaNhanVienMoi() {
-        String maMoi = nhanVienService.sinhMaNhanVienMoi();
-        txtMaNhanVien.setText(maMoi);
+        try {
+            Response res = socketClient.send(
+                    new Request(CommandType.AUTO_GEN_MA_NHAN_VIEN, null)
+            );
+
+            if (res != null && res.isSuccess()) {
+                txtMaNhanVien.setText((String) res.getData());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onThemNhanVien(ActionEvent actionEvent) {
         try {
             String maNV = txtMaNhanVien.getText().trim();
             String tenNV = txtTenNhanVien.getText().trim();
+
             LocalDate ngaySinh = dpNgaySinh.getValue();
             String cccd = txtCCCD.getText().trim();
             String email = txtEmail.getText().trim();
             String sdt = txtSdt.getText().trim();
-            LocalDate ngayBatDauLamViec = dpNgayBatDauLamViec.getValue();
+            LocalDate ngayBD = dpNgayBatDauLamViec.getValue();
+
             VaiTroNhanVien vaiTro = cbVaiTro.getValue();
             TrangThaiLamViec trangThai = cbTrangThaiLamViec.getValue();
 
-            GioiTinh gioiTinh = null;
-            if (rbNam.isSelected()) {
-                gioiTinh = GioiTinh.NAM;
-            } else if (rbNu.isSelected()) {
-                gioiTinh = GioiTinh.NU;
-            }
+            GioiTinh gioiTinh =
+                    rbNam.isSelected() ? GioiTinh.NAM :
+                            rbNu.isSelected() ? GioiTinh.NU : null;
 
-            if (maNV.isEmpty() || tenNV.isEmpty() || gioiTinh == null || ngaySinh == null || cccd.isEmpty() || sdt.isEmpty() || ngayBatDauLamViec == null || vaiTro == null || trangThai == null) {
-                GiaoDienUtils.showThongBao(Alert.AlertType.WARNING, "Thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
+            if (maNV.isEmpty() || tenNV.isEmpty() || gioiTinh == null ||
+                    ngaySinh == null || cccd.isEmpty() || sdt.isEmpty() ||
+                    ngayBD == null || vaiTro == null || trangThai == null) {
+
+                GiaoDienUtils.showThongBao(Alert.AlertType.WARNING,
+                        "Thiếu thông tin", "Vui lòng nhập đủ");
                 return;
             }
-            String duongDanAnh = luuAnhNhanVien(maNV);
+
             NhanVienEntity nv = new NhanVienEntity();
             nv.setMaNV(maNV);
             nv.setTenNV(tenNV);
-            nv.setAnh(duongDanAnh);
             nv.setGioiTinh(gioiTinh);
             nv.setNgaySinh(ngaySinh);
             nv.setCccd(cccd);
-            nv.setEmail(email.isEmpty() ? null : email);
+            nv.setEmail(email);
             nv.setSdt(sdt);
-            nv.setNgayBatDauLamViec(ngayBatDauLamViec.atStartOfDay().toLocalDate());
+            nv.setNgayBatDauLamViec(ngayBD);
             nv.setVaiTro(vaiTro);
             nv.setTrangThaiLamViec(trangThai);
-            boolean success = nhanVienService.themNhanVien(nv);
+            nv.setAnh(luuAnhNhanVien(maNV));
 
-            if (success) {
-                GiaoDienUtils.showThongBao(Alert.AlertType.INFORMATION,"Thêm nhân viên thành công!","Thêm nhân viên thành công!");
+            Response res = socketClient.send(
+                    new Request(CommandType.ADD_NHAN_VIEN, nv)
+            );
+
+            if (res.isSuccess()) {
+                GiaoDienUtils.showThongBao(
+                        Alert.AlertType.INFORMATION,
+                        "OK",
+                        "Thêm thành công"
+                );
+
                 hienThiDanhSachNhanVien(null);
                 onLamMoi(null);
             } else {
-                GiaoDienUtils.showThongBao(Alert.AlertType.ERROR,"Thêm nhân viên thất bại. Có thể Mã NV đã tồn tại.","Thêm nhân viên thất bại. Có thể Mã NV đã tồn tại");
+                GiaoDienUtils.showThongBao(
+                        Alert.AlertType.ERROR,
+                        "Lỗi",
+                        res.getMessage()
+                );
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            GiaoDienUtils.showThongBao(Alert.AlertType.ERROR,"Lỗi hệ thống khi thêm nhân viên: ","Lỗi hệ thống khi thêm nhân viên");
         }
     }
 
     public void onLamMoi(ActionEvent actionEvent) {
-        txtMaNhanVien.clear();
         txtTenNhanVien.clear();
-        rbNam.setSelected(false);
-        rbNu.setSelected(false);
-        dpNgaySinh.setValue(null);
         txtCCCD.clear();
         txtEmail.clear();
         txtSdt.clear();
+
+        dpNgaySinh.setValue(null);
         dpNgayBatDauLamViec.setValue(null);
+
+        rbNam.setSelected(false);
+        rbNu.setSelected(false);
+
         cbVaiTro.getSelectionModel().selectFirst();
         cbTrangThaiLamViec.getSelectionModel().selectFirst();
-
-        if (tableNhanVien != null) {
-            tableNhanVien.getItems().clear();
-        }
 
         setAnhMacDinh();
         fileAnhDaChon = null;
@@ -298,21 +325,33 @@ public class ThemNhanVien {
 
     public void hienThiDanhSachNhanVien(ActionEvent actionEvent) {
         try {
-            List<NhanVienEntity> danhSach = nhanVienService.layTatCaNhanVien();
-            tableNhanVien.getItems().clear();
+            Response res = socketClient.send(
+                    new Request(CommandType.GET_ALL_NHAN_VIEN, null)
+            );
 
-            if (danhSach != null && !danhSach.isEmpty()) {
-                ObservableList<NhanVienEntity> observableList = FXCollections.observableArrayList(danhSach);
-                tableNhanVien.setItems(observableList);
-            } else {
-                GiaoDienUtils.showThongBao( Alert.AlertType.WARNING, "Không tìm thấy nhân viên nào trong cơ sở dữ liệu.","Không tìm thấy nhân viên nào trong cơ sở dữ liệu");
+            if (res == null || !res.isSuccess()) {
+                System.out.println("SERVER FAIL: " + (res != null ? res.getMessage() : "null"));
+                return;
             }
+
+            List<NhanVienEntity> list =
+                    (List<NhanVienEntity>) res.getData();
+
+            if (list == null) {
+                tableNhanVien.getItems().clear();
+                return;
+            }
+
+            ObservableList<NhanVienEntity> data =
+                    FXCollections.observableArrayList(list);
+
+            tableNhanVien.setItems(data);
+
+            System.out.println("SIZE NV = " + list.size());
 
         } catch (Exception e) {
             e.printStackTrace();
-            GiaoDienUtils.showThongBao(Alert.AlertType.ERROR, "Lỗi khi tải danh sách nhân viên: ","Lỗi khi tải danh sách nhân viên!");
         }
-
     }
 
     private void hienThiThongTinNhanVien(NhanVienEntity nv) {

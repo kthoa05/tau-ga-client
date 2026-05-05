@@ -1,18 +1,22 @@
 package controller.ql.nhanvien;
 
-import entity.NhanVienEntity;
+import dto.NhanVienDTO;
 import entity.enums.TrangThaiLamViec;
 import entity.enums.VaiTroNhanVien;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import service.INhanVienService;
-import service.impl.NhanVienServiceImpl;
+import network.client.SocketClient;
+import network.common.CommandType;
+import network.common.Request;
+import network.common.Response;
+import network.common.request.ThongTinNhanVienRequest;
 import utils.GiaoDienUtils;
 import utils.TauGaUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class TraCuuNhanVien {
     @FXML
@@ -22,29 +26,30 @@ public class TraCuuNhanVien {
     @FXML
     private TextField txtMaNhanVien;
     @FXML
-    private TableView<NhanVienEntity> tableNhanVien;
+    private TableView<NhanVienDTO> tableNhanVien;
+
     @FXML
-    private TableColumn<NhanVienEntity, String> maNVCol;
+    private TableColumn<NhanVienDTO, String> maNVCol;
     @FXML
-    private TableColumn<NhanVienEntity, String> tenNVCol;
+    private TableColumn<NhanVienDTO, String> tenNVCol;
     @FXML
-    private TableColumn<NhanVienEntity, Boolean> gioiTinhCol;
+    private TableColumn<NhanVienDTO, Boolean> gioiTinhCol;
     @FXML
-    private TableColumn<NhanVienEntity, LocalDate> ngaySinhCol;
+    private TableColumn<NhanVienDTO, String> ngaySinhCol;
     @FXML
-    private TableColumn<NhanVienEntity, String> cccdCol;
+    private TableColumn<NhanVienDTO, String> cccdCol;
     @FXML
-    private TableColumn<NhanVienEntity, String> emailCol;
+    private TableColumn<NhanVienDTO, String> emailCol;
     @FXML
-    private TableColumn<NhanVienEntity, String> sdtCol;
+    private TableColumn<NhanVienDTO, String> sdtCol;
     @FXML
-    private TableColumn<NhanVienEntity, LocalDate> ngayBatDauLamViecCol;
+    private TableColumn<NhanVienDTO, LocalDate> ngayBatDauLamViecCol;
     @FXML
-    private TableColumn<NhanVienEntity, VaiTroNhanVien> vaiTroCol;
+    private TableColumn<NhanVienDTO, VaiTroNhanVien> vaiTroCol;
     @FXML
-    private TableColumn<NhanVienEntity, TrangThaiLamViec> trangThaiCol;
-    //service
-    private final INhanVienService nhanVienService = new NhanVienServiceImpl();
+    private TableColumn<NhanVienDTO, TrangThaiLamViec> trangThaiCol;
+
+    private final SocketClient socketClient = new SocketClient();
 
     @FXML
     public void initialize() {
@@ -57,38 +62,23 @@ public class TraCuuNhanVien {
         sdtCol.setCellValueFactory(new PropertyValueFactory<>("sdt"));
         ngayBatDauLamViecCol.setCellValueFactory(new PropertyValueFactory<>("ngayBatDauLamViec"));
         vaiTroCol.setCellValueFactory(new PropertyValueFactory<>("vaiTro"));
+
         trangThaiCol.setCellValueFactory(new PropertyValueFactory<>("trangThaiLamViec"));
         trangThaiCol.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(TrangThaiLamViec item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getLabel());
-                }
+                setText(empty || item == null ? null : item.getLabel());
             }
         });
-        ngaySinhCol.setCellFactory(column -> new TableCell<>() {
+
+        ngayBatDauLamViecCol.setCellFactory(col -> new TableCell<>() {
             @Override
             protected void updateItem(LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(TauGaUtils.DateTimeUtils.convertLocalDateToString(item, TauGaUtils.FORMATTER_DATE));
-                }
-            }
-        });
-        ngayBatDauLamViecCol.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(TauGaUtils.DateTimeUtils.convertLocalDateToString(item, TauGaUtils.FORMATTER_DATE));
-                }
+                setText(empty || item == null
+                        ? null
+                        : TauGaUtils.DateTimeUtils.convertLocalDateToString(item, TauGaUtils.FORMATTER_DATE));
             }
         });
     }
@@ -100,41 +90,35 @@ public class TraCuuNhanVien {
         String cccd = txtCCCD.getText().trim();
 
         if (maNV.isEmpty() && sdt.isEmpty() && cccd.isEmpty()) {
-            GiaoDienUtils.showThongBao(Alert.AlertType.INFORMATION,"Vui lòng nhập mã nhân viên!","Vui lòng nhập mã nhân viên!");
+            GiaoDienUtils.showThongBao(Alert.AlertType.WARNING,
+                    "Thiếu dữ liệu",
+                    "Nhập ít nhất 1 thông tin để tìm");
             return;
         }
-        NhanVienEntity nv = nhanVienService.timKiemNhanVien(
-                maNV.isEmpty() ? null : maNV,
-                sdt.isEmpty() ? null : sdt,
-                cccd.isEmpty() ? null : cccd);
-        tableNhanVien.getItems().clear();
 
-        if (nv == null) {
-            GiaoDienUtils.showThongBao(Alert.AlertType.INFORMATION,"Không tìm thấy nhân viên!","Không tìm thấy nhân viên!");
+        ThongTinNhanVienRequest req = new ThongTinNhanVienRequest(maNV, cccd, sdt);
+        Response res = socketClient.send(new Request(CommandType.SEARCH_NHAN_VIEN, req));
+
+        if (!res.isSuccess()) {
+            GiaoDienUtils.showThongBao(Alert.AlertType.INFORMATION,
+                    "Không tìm thấy", res.getMessage());
             return;
         }
-        if (!maNV.isEmpty() && !nv.getMaNV().equals(maNV)) {
+
+        Object data = res.getData();
+
+        if (data instanceof List<?> list && !list.isEmpty() && list.get(0) instanceof NhanVienDTO) {
+            @SuppressWarnings("unchecked")
+            List<NhanVienDTO> dtoList = (List<NhanVienDTO>) list;
+            tableNhanVien.getItems().setAll(dtoList);
+
+        } else if (data instanceof NhanVienDTO dto) {
+            tableNhanVien.getItems().setAll(dto);
+
+        } else {
             GiaoDienUtils.showThongBao(Alert.AlertType.ERROR,
-                    "Mã nhân viên không khớp với dữ liệu!",
-                    "Mã nhân viên không khớp với dữ liệu!");
-            return;
+                    "Lỗi", "Sai kiểu dữ liệu server trả về");
         }
-
-        if (!sdt.isEmpty() && !nv.getSdt().equals(sdt)) {
-            GiaoDienUtils.showThongBao(Alert.AlertType.ERROR,
-                    "Số điện thoại không khớp với dữ liệu!",
-                    "Số điện thoại không khớp với dữ liệu!");
-            return;
-        }
-
-        if (!cccd.isEmpty() && !nv.getCccd().equals(cccd)) {
-            GiaoDienUtils.showThongBao(Alert.AlertType.ERROR,
-                    "CCCD không khớp với dữ liệu!",
-                    "CCCD không khớp với dữ liệu!");
-            return;
-        }
-
-        tableNhanVien.getItems().add(nv);
     }
 
     @FXML
@@ -143,6 +127,5 @@ public class TraCuuNhanVien {
         txtCCCD.clear();
         txtSoDienThoai.clear();
         tableNhanVien.getItems().clear();
-
     }
 }
