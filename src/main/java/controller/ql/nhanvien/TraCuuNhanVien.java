@@ -27,7 +27,6 @@ public class TraCuuNhanVien {
     private TextField txtMaNhanVien;
     @FXML
     private TableView<NhanVienDTO> tableNhanVien;
-
     @FXML
     private TableColumn<NhanVienDTO, String> maNVCol;
     @FXML

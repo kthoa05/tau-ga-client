@@ -156,7 +156,6 @@ public class ThemNhanVien {
                 setText(empty || item == null ? null : item.getLabel());
             }
         });
-
         ngaySinhCol.setCellFactory(tc -> new TableCell<NhanVienEntity, LocalDate>() {
             @Override
             protected void updateItem(LocalDate item, boolean empty) {

@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuanLyTau {
-
     @FXML private TextField txtMaTau;
     @FXML private TextField txtTenTau;
     @FXML private TextField txtSoToaTau;

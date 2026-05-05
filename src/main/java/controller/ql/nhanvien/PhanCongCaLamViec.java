@@ -402,5 +402,4 @@ public class PhanCongCaLamViec {
         dpNgayLam.setValue(null);
         cbTrangThai.setValue(null);
     }
-
 }

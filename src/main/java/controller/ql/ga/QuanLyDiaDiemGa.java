@@ -79,7 +79,6 @@ public class QuanLyDiaDiemGa {
                 return (List<GaDTO>) response.getData();
             }
         };
-
         task.setOnSucceeded(e -> {
             danhSachGa.clear();
             danhSachGa.setAll(task.getValue());
