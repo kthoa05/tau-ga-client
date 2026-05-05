@@ -226,9 +226,7 @@ public class PhanCongCaLamViec {
                         "Thành công",
                         "Phân công thành công"
                 );
-
-                loadData();
-
+                phanCongList.add(dto);
                 xoaTrang(null);
 
             } else {
@@ -255,22 +253,12 @@ public class PhanCongCaLamViec {
                         new Request(CommandType.GET_ALL_PHAN_CONG, null)
                 );
 
-                if (res == null) {
-                    return List.of();
-                }
-
-                if (!res.isSuccess()) {
-                    return List.of();
-                }
-
-                Object data = res.getData();
-
-                if (data == null) {
+                if (res == null || !res.isSuccess() || res.getData() == null) {
                     return List.of();
                 }
 
                 try {
-                    List<?> rawList = (List<?>) data;
+                    List<?> rawList = (List<?>) res.getData();
                     return rawList.stream()
                             .filter(item -> item instanceof PhanCongDTO)
                             .map(item -> (PhanCongDTO) item)
@@ -284,18 +272,18 @@ public class PhanCongCaLamViec {
         };
 
         task.setOnSucceeded(e -> {
+            List<PhanCongDTO> result = task.getValue();
 
-            phanCongList =
-                    FXCollections.observableArrayList(task.getValue());
+            if (phanCongList == null) {
+                phanCongList = FXCollections.observableArrayList();
+                tblPhanCong.setItems(phanCongList);
+            }
 
-            tblPhanCong.setItems(phanCongList);
-
-            tblPhanCong.refresh();
+            phanCongList.clear();
+            phanCongList.addAll(result);
         });
 
-        Thread thread = new Thread(task);
-        thread.setDaemon(true);
-        thread.start();
+        new Thread(task).start();
     }
 
 
@@ -363,10 +351,8 @@ public class PhanCongCaLamViec {
                         "Cập nhật phân công thành công"
                 );
 
-                loadData();
-
-                tblPhanCong.refresh();
-
+                int index = phanCongList.indexOf(selected);
+                phanCongList.set(index, dto);
                 tblPhanCong.getSelectionModel().clearSelection();
 
                 xoaTrang(null);
@@ -402,4 +388,5 @@ public class PhanCongCaLamViec {
         dpNgayLam.setValue(null);
         cbTrangThai.setValue(null);
     }
+
 }

@@ -217,7 +217,6 @@ public class ThemNhanVien {
         txtMaNhanVien.setEditable(false);
         txtMaNhanVien.setDisable(true);
         hienThiMaNhanVienMoi();
-        hienThiDanhSachNhanVien(null);
     }
 
     private void hienThiMaNhanVienMoi() {
