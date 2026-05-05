@@ -32,6 +32,7 @@ import utils.consts.CurrentUser;
 import utils.enums.Title;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -180,10 +181,11 @@ public class DoiVe {
     private final SocketClient socketClient = new SocketClient();
 
     private IChuyenTauService chuyenTauService = new ChuyenTauServiceImpl();
-    private final List<GheDTO> danhSachGheDangChon = new ArrayList<>();
+    private final List<GheDTO> danhSachGheDangChon = new java.util.ArrayList<>();
     private final List<ThongTinDatVeDTO> danhSachThongTinVe = new ArrayList<>();
     private KhuyenMaiApDungDTO khuyenMaiApDungDTO = null;
     private ThongTinChuyenTauDTO chuyenTauMoiDangChon;
+    private ThongTinChuyenTauDTO thongTinCoCuLy;
 
 
     @FXML
@@ -336,7 +338,7 @@ public class DoiVe {
         }
     }
 
-    public void doiVe(ActionEvent actionEvent) {
+    public void doiVe(javafx.event.ActionEvent actionEvent) {
         pnDanhSachChuyenDiMotChieu.getChildren().clear();
         soDoGhe.getChildren().clear();
         txtHanhKhachMoi.clear();
@@ -413,7 +415,7 @@ public class DoiVe {
     }
 
 
-    public void timKiemCT(ActionEvent actionEvent) {
+    public void timKiemCT(javafx.event.ActionEvent actionEvent) {
         /**
          1. Load data
          * */
@@ -460,17 +462,33 @@ public class DoiVe {
             return;
         }
 
-        ThongTinChuyenTauDTO thongTin = chuyenTauService.getThongTinChuyenTauCoCuly(
+//        ThongTinChuyenTauDTO thongTin = chuyenTauService.getThongTinChuyenTauCoCuly(
+//                veTauDTO.getGaDi(),
+//                veTauDTO.getGaDen(),
+//                dsLoc.get(0).getMaChuyenTau()
+//        );
+        ThongTinChuyenTauDTO thongTin = getThongTinChuyenTauCoCuLy(
                 veTauDTO.getGaDi(),
                 veTauDTO.getGaDen(),
                 dsLoc.get(0).getMaChuyenTau()
         );
+        this.thongTinCoCuLy = thongTin;
 
         CurrentUser.setThongTinChuyenTauDTO(thongTin);
 
         ChuyenTauDTO ketQuaLoc = new ChuyenTauDTO();
         ketQuaLoc.setChuyenTauDi(dsLoc);
         hienThiChuyenTau(ketQuaLoc, loaiGhe);
+    }
+
+    public ThongTinChuyenTauDTO getThongTinChuyenTauCoCuLy(String gaDi, String gaDen, String maChuyenTau) {
+        ThongTinChuyenTauCoCuLyRequest payload = new ThongTinChuyenTauCoCuLyRequest(gaDi, gaDen, maChuyenTau);
+        Request request = new Request(CommandType.GET_THONG_TIN_CHUYEN_TAU_CO_CU_LY, payload);
+        Response response = socketClient.send(request);
+        if (!response.isSuccess() || !(response.getData() instanceof ThongTinChuyenTauDTO dto)) {
+            return null;
+        }
+        return (ThongTinChuyenTauDTO) dto;
     }
 
 
@@ -660,7 +678,7 @@ public class DoiVe {
         double giaVe = gheChon.getGiaVe();
         KhachHangDTO kh = CurrentUser.getKhachHangDTO();
         ChiTietVeTraDTO veCu = CurrentUser.getChiTietVeTraDTO();
-        ThongTinChuyenTauDTO ct = CurrentUser.getThongTinChuyenTauDTO();
+//        ThongTinChuyenTauDTO ct = CurrentUser.getThongTinChuyenTauDTO();
         double gia1Km = 1000;
 
         gheChon.setGiaVe(giaVe);
@@ -676,12 +694,13 @@ public class DoiVe {
         txtLoaiGheMoi.setText(cbbLoaiGhe.getSelectionModel().getSelectedItem());
 
 
-        double tongTienMoi = (giaVe *  gheChon.getHeSoVe()) + (ct.getCuly() * gia1Km);
+        double tongTienMoi = (giaVe *  gheChon.getHeSoVe()) + (thongTinCoCuLy.getCuly() * gia1Km);
         txtTongTienMoi.setText(TauGaUtils.NumberUtils.formatNumber(tongTienMoi));
 
         //tinh tien de bo vao text field o cthd
         double tienCu = veCu.getTienVe();
-        double tienMoi = giaVe;
+//        double tienMoi = giaVe;
+        double tienMoi = tongTienMoi;
         tongTien = tienMoi - tienCu;
         CurrentUser.setThanhTien(tongTien);
 
