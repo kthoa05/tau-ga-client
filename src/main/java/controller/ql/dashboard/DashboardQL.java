@@ -223,10 +223,6 @@ public class DashboardQL {
         veMuiTenTrucXY(lineChartChuyenTau);
     }
 
-    // -----------------------------------------------------------------------
-    // Helpers (giữ nguyên so với bản cũ)
-    // -----------------------------------------------------------------------
-
     private void hienGiaTriTrenCot(XYChart.Data<String, Number> data) {
         Node node = data.getNode();
         Label label = new Label(dinhDangTien(data.getYValue()));
@@ -286,10 +282,6 @@ public class DashboardQL {
         double base = Math.pow(10, Math.floor(Math.log10(value)));
         return Math.ceil(value / base) * base;
     }
-
-    // -----------------------------------------------------------------------
-    // Navigation
-    // -----------------------------------------------------------------------
 
     public void linkToSoLuongVeTheoChuyen(MouseEvent mouseEvent) {
         CurrentUser.setIsFromDashboard(Boolean.TRUE);
