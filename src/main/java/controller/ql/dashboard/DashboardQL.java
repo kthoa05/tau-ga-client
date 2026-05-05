@@ -302,4 +302,6 @@ public class DashboardQL {
         CurrentUser.setIsFromDashboard(Boolean.TRUE);
         GiaoDienUtils.getMainLayoutQL().goToFromDashboard(ManHinh.ThongKeChuyenTauChayTheoNgay);
     }
+
+
 }
