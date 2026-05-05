@@ -34,7 +34,6 @@ public class QuanLyTau {
     @FXML private TableColumn<TauDTO, String> colMaTau;
     @FXML private TableColumn<TauDTO, String> colTenTau;
     @FXML private TableColumn<TauDTO, Integer> colSoToaTau;
-
     //private final ITauService tauService = new TauServiceImpl();
     private final ObservableList<TauDTO> danhSachTau = FXCollections.observableArrayList();
     private final SocketClient socketClient = new SocketClient();
