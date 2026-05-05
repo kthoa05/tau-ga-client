@@ -12,7 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory; // SỬA: Import đúng
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -23,8 +23,8 @@ import network.common.Request;
 import network.common.Response;
 import network.common.request.MaVeRequest;
 import network.common.request.TraVeSearchRequest;
-import utils.GiaoDienUtils;
 import utils.QuetQrUtils;
+import utils.GiaoDienUtils;
 import utils.TauGaUtils;
 import utils.consts.CurrentUser;
 import utils.enums.ManHinh;
@@ -135,13 +135,13 @@ public class TraCuuVe {
         }
     }
 
-        private void updateHBoxToggle () {
-            boolean isMaVe = radMaVe.isSelected();
-            HBoxMaVe.setVisible(isMaVe);
-            HBoxMaVe.setManaged(isMaVe);
-            HBoxThongTinKH.setVisible(!isMaVe);
-            HBoxThongTinKH.setManaged(!isMaVe);
-        }
+    private void updateHBoxToggle () {
+        boolean isMaVe = radMaVe.isSelected();
+        HBoxMaVe.setVisible(isMaVe);
+        HBoxMaVe.setManaged(isMaVe);
+        HBoxThongTinKH.setVisible(!isMaVe);
+        HBoxThongTinKH.setManaged(!isMaVe);
+    }
 
 
     @FXML
@@ -297,15 +297,15 @@ public class TraCuuVe {
     }
 
     private VeTauDTO timVeTheoMaVe(String maVe) {
-        return timVe(new TraVeSearchRequest("MA_VE", maVe));
+        return timVe(new TraVeSearchRequest(maVe, "MA_VE"));
     }
 
     private VeTauDTO timVeTheoSDT(String sdt) {
-        return timVe(new TraVeSearchRequest("SDT", sdt));
+        return timVe(new TraVeSearchRequest(sdt, "SDT"));
     }
 
     private VeTauDTO timVeTheoCCCD(String cccd) {
-        return timVe(new TraVeSearchRequest("CCCD", cccd));
+        return timVe(new TraVeSearchRequest(cccd, "CCCD"));
     }
 
     private VeTauDTO timVe(TraVeSearchRequest payload) {
